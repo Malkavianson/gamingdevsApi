@@ -58,6 +58,7 @@ IMPORTANTE!\n
 		.addTag("Genders")
 		.addTag("Status")
 		.addBearerAuth()
+		.addServer("https://gamingdev.onrender.com")
 		.addServer("http://localhost:3333")
 		.build();
 

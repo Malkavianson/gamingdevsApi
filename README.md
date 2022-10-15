@@ -1,4 +1,4 @@
-# [NEST API GamingDevs]('https://ryokan-production.up.railway.app')
+# [NEST API GamingDevs]('https://gamingdev.onrender.com')
 
 #### API em NEST para fins de aprendizagem
 
