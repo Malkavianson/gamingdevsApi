@@ -1,0 +1,82 @@
+// This is your Prisma schema file,
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+generator erd {
+    provider = "prisma-erd-generator"
+    output   = "../db.pdf"
+}
+
+model Users {
+    id        String     @id @default(uuid())
+    name      String
+    email     String
+    password  String
+    cpf       String     @unique
+    isAdmin   Boolean
+    createdAt DateTime   @default(now()) @map("created_at")
+    updatedAt DateTime   @updatedAt @map("updated_at")
+    profiles  Profiles[]
+
+    @@map("users")
+}
+
+model Profiles {
+    id        String      @id @default(uuid())
+    title     String
+    imageUrl  String
+    userId    String?     @map("user_id")
+    user      Users?      @relation(fields: [userId], references: [id], onDelete: Cascade)
+    favorites Favorites[]
+    createdAt DateTime    @default(now()) @map("created_at")
+    updatedAt DateTime    @updatedAt @map("updated_at")
+
+    @@map("profiles")
+}
+
+model Games {
+    id                 String      @id @default(uuid())
+    title              String      @unique
+    coverImageUrl      String
+    description        Float
+    year               String
+    ImdbScore          Int
+    TrailerYouTubeUrl  String
+    GameplayYouTubeUrl String
+    createdAt          DateTime    @default(now()) @map("created_at")
+    updatedAt          DateTime    @updatedAt @map("updated_at")
+    gender             Genders?    @relation(fields: [genderId], references: [id], onDelete: SetNull)
+    genderId           String?     @map("genders_id")
+    favorites          Favorites[]
+
+    @@map("games")
+}
+
+model Genders {
+    id        String   @id @default(uuid())
+    name      String   @unique
+    createdAt DateTime @default(now()) @map("created_at")
+    updatedAt DateTime @updatedAt @map("updated_at")
+    games     Games[]
+
+    @@map("genders")
+}
+
+model Favorites {
+    id        String   @id @default(uuid())
+    createdAt DateTime @default(now()) @map("created_at")
+    profile   Profiles @relation(fields: [profileId], references: [id], onDelete: Cascade)
+    profileId String   @map("profile_id")
+    game      Games    @relation(fields: [gameId], references: [id], onDelete: Cascade)
+    gameId    String   @map("game_name")
+
+    @@unique([profileId, gameId])
+    @@map("favorite")
+}
