@@ -46,8 +46,8 @@ Modo de usar:\n
 \n
 IMPORTANTE!\n
 	A API ainda possui limitações e ainda está em construção.
-	Caso encontre erros ou tenha sugestões, favor enviar 
-    `,
+	Caso encontre erros ou tenha sugestões, favor abrir um card em https://github.com/Malkavianson/gamingdevsApi/issues
+	`,
 		)
 		.setVersion("1.1")
 		.addTag("Auth")
