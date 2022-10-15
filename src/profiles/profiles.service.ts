@@ -1,7 +1,6 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { PrismaService } from "src/prisma/prisma.service";
 import handleErrorConstraintUnique from "src/utils/handle-error-unique.util";
-import type { Profiles } from "./entities/profiles.entities";
 import { CreateProfileDto } from "./dto/create-profile.dto";
 import { UpdateProfileDto } from "./dto/update-profile.dto";
 
@@ -9,16 +8,16 @@ import { UpdateProfileDto } from "./dto/update-profile.dto";
 export class ProfilesService {
 	constructor(private readonly prisma: PrismaService) {}
 
-	async create(dto: CreateProfileDto): Promise<Profiles> {
+	async create(dto: CreateProfileDto) {
 		return await this.prisma.profiles.create({ data: dto }).catch(handleErrorConstraintUnique);
 	}
 
-	async findAll(): Promise<Profiles[]> {
+	async findAll() {
 		return await this.prisma.profiles.findMany();
 	}
 
-	async verifyIdAndReturnProfile(id: string): Promise<Profiles> {
-		const profile: Promise<Profiles> = await this.prisma.profiles.findUnique({
+	async verifyIdAndReturnProfile(id: string) {
+		const profile = await this.prisma.profiles.findUnique({
 			where: { id },
 		});
 
@@ -29,11 +28,11 @@ export class ProfilesService {
 		return profile;
 	}
 
-	async findOne(id: string): Promise<Profiles> {
+	async findOne(id: string) {
 		return await this.verifyIdAndReturnProfile(id);
 	}
 
-	async update(id: string, dto: UpdateProfileDto): Promise<Profiles> {
+	async update(id: string, dto: UpdateProfileDto) {
 		await this.verifyIdAndReturnProfile(id);
 
 		return await this.prisma.profiles.update({ where: { id }, data: dto }).catch(handleErrorConstraintUnique);

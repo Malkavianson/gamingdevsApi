@@ -1,6 +1,5 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from "@nestjs/common";
 import { ApiBearerAuth, ApiOperation, ApiTags } from "@nestjs/swagger";
-import type { Profiles } from "./entities/profiles.entities";
 import { CreateProfileDto } from "./dto/create-profile.dto";
 import { UpdateProfileDto } from "./dto/update-profile.dto";
 import { ProfilesService } from "./profiles.service";
@@ -17,7 +16,7 @@ export class ProfilesController {
 	@ApiOperation({
 		summary: "Fill a new profile state",
 	})
-	async create(@Body() dto: CreateProfileDto): Promise<Profiles | void> {
+	async create(@Body() dto: CreateProfileDto) {
 		return await this.profilesService.create(dto);
 	}
 
@@ -25,7 +24,7 @@ export class ProfilesController {
 	@ApiOperation({
 		summary: "List all Profiles",
 	})
-	async findAll(): Promise<Profiles[]> {
+	async findAll() {
 		return await this.profilesService.findAll();
 	}
 
@@ -33,7 +32,7 @@ export class ProfilesController {
 	@ApiOperation({
 		summary: "Find one Profile by ID",
 	})
-	async findOne(@Param("id") id: string): Promise<Profiles> {
+	async findOne(@Param("id") id: string) {
 		return await this.profilesService.findOne(id);
 	}
 
@@ -41,7 +40,7 @@ export class ProfilesController {
 	@ApiOperation({
 		summary: "Patch Profile state information",
 	})
-	async update(@Param("id") id: string, @Body() dto: UpdateProfileDto): Promise<Profiles | void> {
+	async update(@Param("id") id: string, @Body() dto: UpdateProfileDto) {
 		return await this.profilesService.update(id, dto);
 	}
 

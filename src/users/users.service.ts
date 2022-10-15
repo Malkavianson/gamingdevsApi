@@ -1,7 +1,6 @@
 import handleErrorConstraintUnique from "../utils/handle-error-unique.util";
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { PrismaService } from "src/prisma/prisma.service";
-import type { Users } from "./entities/users.entities";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { UpdateUserDto } from "./dto/update-user.dto";
 import * as bcrypt from "bcryptjs";
@@ -19,7 +18,7 @@ export class UsersService {
 
 	constructor(private readonly prisma: PrismaService) {}
 
-	async create(dto: CreateUserDto): Promise<Users | void> {
+	async create(dto: CreateUserDto) {
 		const hashedPassword = await bcrypt.hash(dto.password, 8);
 
 		const data: CreateUserDto = {
@@ -33,7 +32,7 @@ export class UsersService {
 		return this.prisma.users.create({ data, select: this.userSelect }).catch(handleErrorConstraintUnique);
 	}
 
-	async findAll(): Promise<Users[]> {
+	async findAll() {
 		const res = await this.prisma.users.findMany({
 			select: {
 				...this.userSelect,
@@ -44,8 +43,8 @@ export class UsersService {
 		return res;
 	}
 
-	async verifyIdAndReturnUser(id: string): Promise<Users> {
-		const user: Users | null = await this.prisma.users.findUnique({
+	async verifyIdAndReturnUser(id: string) {
+		const user = await this.prisma.users.findUnique({
 			where: { id },
 			select: {
 				...this.userSelect,
@@ -60,11 +59,11 @@ export class UsersService {
 		return user;
 	}
 
-	findOne(id: string): Promise<Users> {
-		return this.verifyIdAndReturnUser(id);
+	async findOne(id: string) {
+		return await this.verifyIdAndReturnUser(id);
 	}
 
-	async update(id: string, dto: UpdateUserDto): Promise<Users | void> {
+	async update(id: string, dto: UpdateUserDto) {
 		await this.verifyIdAndReturnUser(id);
 
 		if (dto.password) {
@@ -72,13 +71,13 @@ export class UsersService {
 			dto.password = hashedPassword;
 		}
 
-		return this.prisma.users.update({ where: { id }, data: dto, select: this.userSelect }).catch(handleErrorConstraintUnique);
+		return await this.prisma.users.update({ where: { id }, data: dto, select: this.userSelect }).catch(handleErrorConstraintUnique);
 	}
 
-	async remove(id: string): Promise<Users> {
+	async remove(id: string) {
 		await this.verifyIdAndReturnUser(id);
 
-		return this.prisma.users.delete({
+		return await this.prisma.users.delete({
 			where: { id },
 			select: this.userSelect,
 		});

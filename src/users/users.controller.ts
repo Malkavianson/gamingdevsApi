@@ -4,7 +4,6 @@ import { CreateUserDto } from "./dto/create-user.dto";
 import { UpdateUserDto } from "./dto/update-user.dto";
 import { UsersService } from "./users.service";
 import { AuthGuard } from "@nestjs/passport";
-import { Users } from "./entities/users.entities";
 
 @ApiTags("Users")
 @Controller("users")
@@ -15,7 +14,7 @@ export class UsersController {
 	@ApiOperation({
 		summary: "Create a new User",
 	})
-	async create(@Body() dto: CreateUserDto): Promise<Users | void> {
+	async create(@Body() dto: CreateUserDto) {
 		return await this.usersService.create(dto);
 	}
 
@@ -25,7 +24,7 @@ export class UsersController {
 	@ApiOperation({
 		summary: "Returns all users",
 	})
-	async findAll(): Promise<Users[]> {
+	async findAll() {
 		return await this.usersService.findAll();
 	}
 
@@ -35,7 +34,7 @@ export class UsersController {
 	@ApiOperation({
 		summary: "Returns one User by ID",
 	})
-	async findOne(@Param("id") id: string): Promise<Users> {
+	async findOne(@Param("id") id: string) {
 		return await this.usersService.findOne(id);
 	}
 
@@ -45,7 +44,7 @@ export class UsersController {
 	@ApiOperation({
 		summary: "Patch one User by ID",
 	})
-	async update(@Param("id") id: string, @Body() dto: UpdateUserDto): Promise<Users | void> {
+	async update(@Param("id") id: string, @Body() dto: UpdateUserDto) {
 		return await this.usersService.update(id, dto);
 	}
 
@@ -56,7 +55,7 @@ export class UsersController {
 	@ApiOperation({
 		summary: "Delete one User by ID",
 	})
-	async remove(@Param("id") id: string): Promise<Users> {
+	async remove(@Param("id") id: string) {
 		return await this.usersService.remove(id);
 	}
 }
