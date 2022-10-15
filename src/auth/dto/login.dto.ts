@@ -5,7 +5,7 @@ export class LoginDto {
 	@IsString()
 	@ApiProperty({
 		description: "User CPF document",
-		example: "831.132.056-03",
+		example: "83113205603",
 	})
 	cpf: string;
 

@@ -33,8 +33,16 @@ export class CreateUserDto {
 	@Matches(/^(\d{11})$/, {
 		message: "You must to send a number string with lenght 11",
 	})
+	@ApiProperty({
+		example: "83113205603",
+		description: "User password => Must have a minimal of 8 characters, one uppercase, one lowercase, one symbol and one number.",
+	})
 	cpf: string;
 
 	@IsBoolean()
+	@ApiProperty({
+		example: "false",
+		description: "User's credentials level",
+	})
 	isAdmin: boolean;
 }

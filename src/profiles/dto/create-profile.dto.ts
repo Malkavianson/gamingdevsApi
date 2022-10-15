@@ -16,4 +16,12 @@ export class CreateProfileDto {
 		description: "Profile ImageURL",
 	})
 	imageUrl: string;
+
+	@IsString()
+	@IsNotEmpty()
+	@ApiProperty({
+		example: "a3d1217c-4c98-11ed-bdc3-0242ac120002",
+		description: "User Id",
+	})
+	userId: string;
 }

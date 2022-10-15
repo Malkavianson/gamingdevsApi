@@ -24,19 +24,16 @@ async function bootstrap() {
 			`Api de controle Ryokan.\n\n
 
 Esta API possui os seguintes recursos:\n
+	Autenticação\n
     Usuarios\n
-    Mesas\n
-    Produtos\n
-    Categorias\n
-    Pedidos\n
-    Autenticação\n
+    Perfis\n
+    Favoritos\n
+    Jogos\n
+    Generos (dos jogos)\n
 \n
 Rotas que não necessitam autenticação:\n
     @GET /status\n
     @POST /users\n
-    @GET /products\n
-    @GET /products/{id}\n
-    @POST /auth/login\n
 \n
 Modo de usar:\n
     Utilizando @POST /users, registre um novo usuário respeitando seu respectivo 'schema'\n
@@ -46,14 +43,14 @@ Modo de usar:\n
     `,
 		)
 		.setVersion("1.1")
-		.addTag("Status")
+		.addTag("Auth")
 		.addTag("Users")
-		.addTag("Categories")
-		.addTag("Products")
-		.addTag("Tables")
-		.addTag("Orders")
+		.addTag("Profiles")
+		.addTag("Favorites")
+		.addTag("Games")
+		.addTag("Genders")
+		.addTag("Status")
 		.addBearerAuth()
-		.addServer("https://ryokan-production.up.railway.app/")
 		.addServer("http://localhost:3333")
 		.build();
 
