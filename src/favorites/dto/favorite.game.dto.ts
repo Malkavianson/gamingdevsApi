@@ -11,5 +11,5 @@ export class FavoriteGameDto {
 		example: "79653a44-4019-11ed-b878-0242ac120000",
 		description: "Favorited game id",
 	})
-	gameId: string;
+	games: string;
 }

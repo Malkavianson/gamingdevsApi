@@ -1,4 +1,4 @@
-import { Favorite } from "src/favorites/entity/favorites.entity";
+import { Favorite } from "src/favorites/entities/favorites.entities";
 
 export class Profiles {
 	id: string;

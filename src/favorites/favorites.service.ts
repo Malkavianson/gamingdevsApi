@@ -27,9 +27,9 @@ export class FavoritesService {
 					id: dto.profileId,
 				},
 			},
-			game: {
+			games: {
 				connect: {
-					id: dto.gameId,
+					id: dto.games,
 				},
 			},
 		};
@@ -40,7 +40,7 @@ export class FavoritesService {
 	async getProfileFavorites(id: string): Promise<Favorites[]> {
 		return await this.prisma.favorites.findMany({
 			where: { profileId: id },
-			include: { game: true },
+			include: { games: true },
 		});
 	}
 

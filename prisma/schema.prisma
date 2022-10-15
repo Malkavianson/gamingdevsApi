@@ -17,13 +17,13 @@ generator erd {
 model Users {
     id        String     @id @default(uuid())
     name      String
-    email     String
+    email     String     @unique
     password  String
     cpf       String     @unique
-    isAdmin   Boolean
+    isAdmin   Boolean    @map("is_admin")
+    profile   Profiles[]
     createdAt DateTime   @default(now()) @map("created_at")
     updatedAt DateTime   @updatedAt @map("updated_at")
-    profiles  Profiles[]
 
     @@map("users")
 }
@@ -31,9 +31,9 @@ model Users {
 model Profiles {
     id        String      @id @default(uuid())
     title     String
-    imageUrl  String
-    userId    String?     @map("user_id")
-    user      Users?      @relation(fields: [userId], references: [id], onDelete: Cascade)
+    imageUrl  String      @default("https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/2048px-Default_pfp.svg.png") @map("imagem_url")
+    user      Users       @relation(fields: [userId], references: [id])
+    userId    String      @map("user_id")
     favorites Favorites[]
     createdAt DateTime    @default(now()) @map("created_at")
     updatedAt DateTime    @updatedAt @map("updated_at")
@@ -42,19 +42,18 @@ model Profiles {
 }
 
 model Games {
-    id                 String      @id @default(uuid())
-    title              String      @unique
-    coverImageUrl      String
-    description        Float
-    year               String
-    ImdbScore          Int
-    TrailerYouTubeUrl  String
-    GameplayYouTubeUrl String
-    createdAt          DateTime    @default(now()) @map("created_at")
-    updatedAt          DateTime    @updatedAt @map("updated_at")
-    gender             Genders?    @relation(fields: [genderId], references: [id], onDelete: SetNull)
-    genderId           String?     @map("genders_id")
-    favorites          Favorites[]
+    id          String      @id @default(uuid())
+    title       String      @unique
+    description String
+    image       String
+    year        String
+    score       String
+    trailer     String
+    gameplay    String
+    genders     Genders[]
+    favorites   Favorites[]
+    createdAt   DateTime    @default(now()) @map("created_at")
+    updatedAt   DateTime    @updatedAt @map("updated_at")
 
     @@map("games")
 }
@@ -62,21 +61,19 @@ model Games {
 model Genders {
     id        String   @id @default(uuid())
     name      String   @unique
+    games     Games[]
     createdAt DateTime @default(now()) @map("created_at")
     updatedAt DateTime @updatedAt @map("updated_at")
-    games     Games[]
 
     @@map("genders")
 }
 
 model Favorites {
     id        String   @id @default(uuid())
-    createdAt DateTime @default(now()) @map("created_at")
-    profile   Profiles @relation(fields: [profileId], references: [id], onDelete: Cascade)
+    profile   Profiles @relation(fields: [profileId], references: [id])
     profileId String   @map("profile_id")
-    game      Games    @relation(fields: [gameId], references: [id], onDelete: Cascade)
-    gameId    String   @map("game_name")
+    games     Games[]
+    createdAt DateTime @default(now()) @map("created_at")
 
-    @@unique([profileId, gameId])
-    @@map("favorite")
+    @@map("favorites")
 }

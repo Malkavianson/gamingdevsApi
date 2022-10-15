@@ -3,6 +3,7 @@ import { IsNotEmpty, IsString } from "class-validator";
 
 export class LoginDto {
 	@IsString()
+	@IsNotEmpty()
 	@ApiProperty({
 		description: "User CPF document",
 		example: "83113205603",

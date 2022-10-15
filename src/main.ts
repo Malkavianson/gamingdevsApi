@@ -19,9 +19,11 @@ async function bootstrap() {
 	console.log("Server Started\n\nMapping documentation");
 
 	const config = new DocumentBuilder()
-		.setTitle("Ryokan")
+		.setTitle("GamingDevs")
 		.setDescription(
-			`Api de controle Ryokan.\n\n
+			`Api de controle GamingDevs.\n\n
+
+Api de gerenciamento e persistencia de dados fake de jogos para fins educacionais
 
 Esta API possui os seguintes recursos:\n
 	Autenticação\n
@@ -32,14 +34,19 @@ Esta API possui os seguintes recursos:\n
     Generos (dos jogos)\n
 \n
 Rotas que não necessitam autenticação:\n
-    @GET /status\n
-    @POST /users\n
+	Criação de usuários		@POST /users\n
+	Autenticação 	 		@POST /auth/login\n
+	Visualização de gêneros	@GET /genders\n
+    Status do Servidor		@GET /status\n
 \n
 Modo de usar:\n
     Utilizando @POST /users, registre um novo usuário respeitando seu respectivo 'schema'\n
     Autentique a conexão através da rota @POST /auth/login enviando email e senha e salve o 'TOKEN' gerado\n
     Valide sua conexão com o token com autenticação ao portador(Bearer)\n
 \n
+IMPORTANTE!\n
+	A API ainda possui limitações e ainda está em construção.
+	Caso encontre erros ou tenha sugestões, favor enviar 
     `,
 		)
 		.setVersion("1.1")

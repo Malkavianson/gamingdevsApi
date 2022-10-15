@@ -5,9 +5,11 @@ import { AuthModule } from "./auth/auth.module";
 import { UsersModule } from "./users/users.module";
 import { ProfilesModule } from "./profiles/profiles.module";
 import { FavoritesModule } from "./favorites/favorites.module";
+import { GamesModule } from "./games/games.module";
+import { GendersModule } from "./genders/genders.module";
 
 @Module({
-	imports: [AuthModule, UsersModule, ProfilesModule, FavoritesModule],
+	imports: [AuthModule, UsersModule, ProfilesModule, FavoritesModule, GamesModule, GendersModule],
 	controllers: [AppController],
 	providers: [AppService],
 })

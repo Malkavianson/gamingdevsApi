@@ -36,7 +36,7 @@ export class UsersService {
 		const res = await this.prisma.users.findMany({
 			select: {
 				...this.userSelect,
-				profiles: true,
+				profile: true,
 			},
 		});
 
@@ -48,7 +48,7 @@ export class UsersService {
 			where: { id },
 			select: {
 				...this.userSelect,
-				profiles: true,
+				profile: true,
 			},
 		});
 
