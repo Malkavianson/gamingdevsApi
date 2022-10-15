@@ -19,17 +19,17 @@ export class GameService {
 	}
 
 	async findById(id: string) {
-		const record = await this.prisma.games.findUnique({
+		const res = await this.prisma.games.findUnique({
 			where: { id },
 			include: {
 				genders: true,
 			},
 		});
 
-		if (!record) {
+		if (!res) {
 			throw new NotFoundException(`${id} not found`);
 		}
-		return record;
+		return res;
 	}
 
 	async create(dto: CreateGameDto, user: Users) {

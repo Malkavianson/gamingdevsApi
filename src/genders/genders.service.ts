@@ -13,7 +13,12 @@ export class GendersService {
 	}
 
 	async findById(id: string): Promise<Gender> {
-		const record = await this.prisma.genders.findUnique({ where: { id } });
+		const record = await this.prisma.genders.findUnique({
+			where: { id },
+			include: {
+				games: true,
+			},
+		});
 
 		if (!record) {
 			throw new NotFoundException("Registro com o ${id}");
@@ -23,18 +28,18 @@ export class GendersService {
 	}
 
 	async findOne(id: string): Promise<Gender> {
-		return this.findById(id);
+		return await this.findById(id);
 	}
 
-	create(dto: CreateGenderDto): Promise<Gender> {
+	async create(dto: CreateGenderDto): Promise<Gender> {
 		const data: Gender = { ...dto };
-		return this.prisma.genders.create({ data });
+		return await this.prisma.genders.create({ data });
 	}
 
 	async update(id: string, dto: UpdateGenderDto): Promise<Gender> {
 		await this.findById(id);
 		const data: Partial<Gender> = { ...dto };
-		return this.prisma.genders.update({ where: { id }, data });
+		return await this.prisma.genders.update({ where: { id }, data });
 	}
 
 	async delete(id: string) {
