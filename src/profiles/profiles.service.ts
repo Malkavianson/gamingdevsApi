@@ -25,14 +25,30 @@ export class ProfilesService {
 
 	async findAll() {
 		return await this.prisma.profiles.findMany({
-			include: { user: true },
+			include: {
+				user: {
+					select: {
+						id: true,
+						name: true,
+						email: true,
+					},
+				},
+			},
 		});
 	}
 
 	async verifyIdAndReturnProfile(id: string) {
 		const profile = await this.prisma.profiles.findUnique({
 			where: { id },
-			include: { user: true },
+			include: {
+				user: {
+					select: {
+						id: true,
+						name: true,
+						email: true,
+					},
+				},
+			},
 		});
 
 		if (!profile) {
@@ -57,7 +73,7 @@ export class ProfilesService {
 
 		return this.prisma.profiles.delete({
 			where: { id },
-			select: { title: true, id: true, user: true },
+			select: { title: true, id: true },
 		});
 	}
 }

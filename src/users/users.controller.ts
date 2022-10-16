@@ -4,6 +4,8 @@ import { CreateUserDto } from "./dto/create-user.dto";
 import { UpdateUserDto } from "./dto/update-user.dto";
 import { UsersService } from "./users.service";
 import { AuthGuard } from "@nestjs/passport";
+import { LoggedUser } from "src/auth/loggeduser.decorator";
+import { Users } from "./entities/users.entities";
 
 @ApiTags("Users")
 @Controller("users")
@@ -44,8 +46,8 @@ export class UsersController {
 	@ApiOperation({
 		summary: "Patch one User by ID",
 	})
-	async update(@Param("id") id: string, @Body() dto: UpdateUserDto) {
-		return await this.usersService.update(id, dto);
+	async update(@LoggedUser() user: Users, @Param("id") id: string, @Body() dto: UpdateUserDto) {
+		return await this.usersService.update(id, dto, user);
 	}
 
 	@Delete(":id")
@@ -55,7 +57,7 @@ export class UsersController {
 	@ApiOperation({
 		summary: "Delete one User by ID",
 	})
-	async remove(@Param("id") id: string) {
-		return await this.usersService.remove(id);
+	async remove(@LoggedUser() user: Users, @Param("id") id: string) {
+		return await this.usersService.remove(id, user);
 	}
 }
