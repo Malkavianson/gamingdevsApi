@@ -1,7 +1,8 @@
-import { ValidationPipe } from "@nestjs/common";
-import { NestFactory } from "@nestjs/core";
+import sDescription from "./utils/swaggerDocumentation.description";
 import { NestExpressApplication } from "@nestjs/platform-express";
 import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
+import { ValidationPipe } from "@nestjs/common";
+import { NestFactory } from "@nestjs/core";
 import { AppModule } from "./app.module";
 
 const PORT = process.env.PORT || 3333;
@@ -20,35 +21,8 @@ async function bootstrap() {
 
 	const config = new DocumentBuilder()
 		.setTitle("GamingDevs")
-		.setDescription(
-			`Api de controle GamingDevs.\n\n
-
-Api de gerenciamento e persistencia de dados fake de jogos para fins educacionais
-
-Esta API possui os seguintes recursos:\n
-	Autenticação\n
-    Usuarios\n
-    Perfis\n
-    Favoritos\n
-    Jogos\n
-    Generos (dos jogos)\n
-\n
-Rotas que não necessitam autenticação:\n
-	Criação de usuários		@POST /users\n
-	Autenticação 	 		@POST /auth/login\n
-	Visualização de gêneros	@GET /genders\n
-    Status do Servidor		@GET /status\n
-\n
-Modo de usar:\n
-    Utilizando @POST /users, registre um novo usuário respeitando seu respectivo 'schema'\n
-    Autentique a conexão através da rota @POST /auth/login enviando cpf e senha e salve o 'TOKEN' gerado\n
-    Valide sua conexão com o token com autenticação ao portador(Bearer)\n
-\n
-IMPORTANTE!\n
-	A API ainda possui limitações e ainda está em construção.
-	Caso encontre erros ou tenha sugestões, favor abrir um card em https://github.com/Malkavianson/gamingdevsApi/issues
-	`,
-		)
+		.setDescription(sDescription.basic)
+		.setExternalDoc(`Para acessar a documentação completa e um passo a passo detalhado da utilização desta aplicação acesse a rota /documentation ou clique aqui.`, "/documentation")
 		.setVersion("1.1")
 		.addTag("Auth")
 		.addTag("Users")
@@ -61,13 +35,19 @@ IMPORTANTE!\n
 		.addServer("https://gamingdev.onrender.com")
 		.addServer("http://localhost:3333")
 		.build();
+	const config2 = new DocumentBuilder().setTitle("GamingDevs").setDescription(sDescription.full).setExternalDoc(`https://github.com/Malkavianson/gamingdevsApi/issues`, " https://github.com/Malkavianson/gamingdevsApi/issues").setExternalDoc(`Voltar para a HOME`, "/docs").setVersion("1.1").addTag("Status").build();
 
 	const document = SwaggerModule.createDocument(app, config);
+	const document2 = SwaggerModule.createDocument(app, config2, { include: [AppModule] });
+
 	SwaggerModule.setup("docs", app, document);
+	SwaggerModule.setup("documentation", app, document2);
 
 	console.log("Swagger.setup Builded");
 	console.log("Mapping routes:");
 
 	await app.listen(PORT, () => console.log(`App bootstraped at http://localhost:${PORT}`));
 }
+
+sDescription;
 bootstrap();
