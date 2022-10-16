@@ -5,6 +5,8 @@ import { Gender } from "./entities/gender.entity";
 import { ApiTags, ApiOperation, ApiBearerAuth } from "@nestjs/swagger";
 import { UpdateGenderDto } from "./dto/update-gender.dto";
 import { AuthGuard } from "@nestjs/passport";
+import { Users } from "src/users/entities/users.entities";
+import { LoggedUser } from "src/auth/loggeduser.decorator";
 
 @ApiTags("Genders")
 @Controller("genders")
@@ -35,8 +37,8 @@ export class GendersController {
 	@ApiOperation({
 		summary: "Register a new Gender",
 	})
-	async create(@Body() dto: CreateGenderDto): Promise<Gender> {
-		return await this.genderService.create(dto);
+	async create(@LoggedUser() user: Users, @Body() dto: CreateGenderDto): Promise<Gender> {
+		return await this.genderService.create(dto, user);
 	}
 
 	@Patch(":id")
@@ -45,8 +47,8 @@ export class GendersController {
 	@ApiOperation({
 		summary: "Patch a gender by ID",
 	})
-	async update(@Param("id") id: string, @Body() dto: UpdateGenderDto): Promise<Gender> {
-		return await this.genderService.update(id, dto);
+	async update(@LoggedUser() user: Users, @Param("id") id: string, @Body() dto: UpdateGenderDto): Promise<Gender> {
+		return await this.genderService.update(id, dto, user);
 	}
 
 	@Delete(":id")
@@ -56,7 +58,7 @@ export class GendersController {
 	@ApiOperation({
 		summary: "Delete a gender by ID",
 	})
-	async delete(@Param("id") id: string) {
-		return await this.genderService.delete(id);
+	async delete(@LoggedUser() user: Users, @Param("id") id: string) {
+		return await this.genderService.delete(id, user);
 	}
 }
