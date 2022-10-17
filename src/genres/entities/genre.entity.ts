@@ -1,4 +1,4 @@
-export class Gender {
+export class Genre {
 	id?: string;
 	name: string;
 	createdAt?: Date;

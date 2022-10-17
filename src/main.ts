@@ -29,7 +29,7 @@ async function bootstrap() {
 		.addTag("Profiles")
 		.addTag("Favorites")
 		.addTag("Games")
-		.addTag("Genders")
+		.addTag("Genres")
 		.addTag("Status")
 		.addBearerAuth()
 		.addServer("https://gamingdev.onrender.com")
@@ -48,6 +48,4 @@ async function bootstrap() {
 
 	await app.listen(PORT, () => console.log(`App bootstraped at http://localhost:${PORT}`));
 }
-
-sDescription;
 bootstrap();

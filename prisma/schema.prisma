@@ -50,7 +50,7 @@ model Games {
     score       String
     trailer     String
     gameplay    String
-    genders     Genders[]
+    genres      Genres[]
     favorites   Favorites[]
     createdAt   DateTime    @default(now()) @map("created_at")
     updatedAt   DateTime    @updatedAt @map("updated_at")
@@ -58,14 +58,14 @@ model Games {
     @@map("games")
 }
 
-model Genders {
+model Genres {
     id        String   @id @default(uuid())
     name      String   @unique
     games     Games[]
     createdAt DateTime @default(now()) @map("created_at")
     updatedAt DateTime @updatedAt @map("updated_at")
 
-    @@map("genders")
+    @@map("genres")
 }
 
 model Favorites {

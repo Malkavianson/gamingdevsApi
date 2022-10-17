@@ -6,10 +6,10 @@ import { UsersModule } from "./users/users.module";
 import { ProfilesModule } from "./profiles/profiles.module";
 import { FavoritesModule } from "./favorites/favorites.module";
 import { GamesModule } from "./games/games.module";
-import { GendersModule } from "./genders/genders.module";
+import { GenresModule } from "./genres/genres.module";
 
 @Module({
-	imports: [AuthModule, UsersModule, ProfilesModule, FavoritesModule, GamesModule, GendersModule],
+	imports: [AuthModule, UsersModule, ProfilesModule, FavoritesModule, GamesModule, GenresModule],
 	controllers: [AppController],
 	providers: [AppService],
 })
