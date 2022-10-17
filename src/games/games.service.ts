@@ -1,5 +1,9 @@
 import UnprocessableEntityException from "src/utils/handle-error-unique.util";
-import { Injectable, NotFoundException, UnauthorizedException } from "@nestjs/common";
+import {
+	Injectable,
+	NotFoundException,
+	UnauthorizedException,
+} from "@nestjs/common";
 import { PrismaService } from "src/prisma/prisma.service";
 import { CreateGameDto } from "./dto/create-game.dto";
 import { UpdateGameDto } from "./dto/update-game.dto";
@@ -58,11 +62,17 @@ export class GameService {
 				})
 				.catch(UnprocessableEntityException);
 		} else {
-			throw new UnauthorizedException("not authorized");
+			throw new UnauthorizedException(
+				"not authorized",
+			);
 		}
 	}
 
-	async update(id: string, dto: UpdateGameDto, user: Users) {
+	async update(
+		id: string,
+		dto: UpdateGameDto,
+		user: Users,
+	) {
 		if (user.isAdmin) {
 			const data: Prisma.GamesUpdateInput = {
 				title: dto.title,
@@ -88,16 +98,22 @@ export class GameService {
 				})
 				.catch(UnprocessableEntityException);
 		} else {
-			throw new UnauthorizedException("not authorized");
+			throw new UnauthorizedException(
+				"not authorized",
+			);
 		}
 	}
 
 	async delete(id: string, user: Users) {
 		if (user.isAdmin) {
 			await this.findById(id);
-			await this.prisma.games.delete({ where: { id } });
+			await this.prisma.games.delete({
+				where: { id },
+			});
 		} else {
-			throw new UnauthorizedException("not authorized");
+			throw new UnauthorizedException(
+				"not authorized",
+			);
 		}
 	}
 }

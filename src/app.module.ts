@@ -9,7 +9,14 @@ import { GamesModule } from "./games/games.module";
 import { GenresModule } from "./genres/genres.module";
 
 @Module({
-	imports: [AuthModule, UsersModule, ProfilesModule, FavoritesModule, GamesModule, GenresModule],
+	imports: [
+		AuthModule,
+		UsersModule,
+		ProfilesModule,
+		FavoritesModule,
+		GamesModule,
+		GenresModule,
+	],
 	controllers: [AppController],
 	providers: [AppService],
 })

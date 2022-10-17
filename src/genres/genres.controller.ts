@@ -1,8 +1,23 @@
-import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post, UseGuards } from "@nestjs/common";
+import {
+	Body,
+	Controller,
+	Delete,
+	Get,
+	HttpCode,
+	HttpStatus,
+	Param,
+	Patch,
+	Post,
+	UseGuards,
+} from "@nestjs/common";
 import { GenresService } from "./genres.service";
 import { CreateGenreDto } from "./dto/create-genre.dto";
 import { Genre } from "./entities/genre.entity";
-import { ApiTags, ApiOperation, ApiBearerAuth } from "@nestjs/swagger";
+import {
+	ApiTags,
+	ApiOperation,
+	ApiBearerAuth,
+} from "@nestjs/swagger";
 import { UpdateGenreDto } from "./dto/update-genre.dto";
 import { AuthGuard } from "@nestjs/passport";
 import { Users } from "src/users/entities/users.entities";
@@ -11,7 +26,9 @@ import { LoggedUser } from "src/auth/loggeduser.decorator";
 @ApiTags("Genres")
 @Controller("genres")
 export class GenresController {
-	constructor(private readonly genreservice: GenresService) {}
+	constructor(
+		private readonly genreservice: GenresService,
+	) {}
 
 	@Get()
 	@ApiOperation({
@@ -37,7 +54,10 @@ export class GenresController {
 	@ApiOperation({
 		summary: "Register a new Genre",
 	})
-	async create(@LoggedUser() user: Users, @Body() dto: CreateGenreDto): Promise<Genre> {
+	async create(
+		@LoggedUser() user: Users,
+		@Body() dto: CreateGenreDto,
+	): Promise<Genre> {
 		return await this.genreservice.create(dto, user);
 	}
 
@@ -47,8 +67,16 @@ export class GenresController {
 	@ApiOperation({
 		summary: "Patch a genre by ID",
 	})
-	async update(@LoggedUser() user: Users, @Param("id") id: string, @Body() dto: UpdateGenreDto): Promise<Genre> {
-		return await this.genreservice.update(id, dto, user);
+	async update(
+		@LoggedUser() user: Users,
+		@Param("id") id: string,
+		@Body() dto: UpdateGenreDto,
+	): Promise<Genre> {
+		return await this.genreservice.update(
+			id,
+			dto,
+			user,
+		);
 	}
 
 	@Delete(":id")
@@ -58,7 +86,10 @@ export class GenresController {
 	@ApiOperation({
 		summary: "Delete a genre by ID",
 	})
-	async delete(@LoggedUser() user: Users, @Param("id") id: string) {
+	async delete(
+		@LoggedUser() user: Users,
+		@Param("id") id: string,
+	) {
 		return await this.genreservice.delete(id, user);
 	}
 }

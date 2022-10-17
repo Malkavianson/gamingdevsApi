@@ -1,5 +1,18 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from "@nestjs/common";
-import { ApiBearerAuth, ApiOperation, ApiTags } from "@nestjs/swagger";
+import {
+	Controller,
+	Get,
+	Post,
+	Body,
+	Patch,
+	Param,
+	Delete,
+	UseGuards,
+} from "@nestjs/common";
+import {
+	ApiBearerAuth,
+	ApiOperation,
+	ApiTags,
+} from "@nestjs/swagger";
 import { CreateProfileDto } from "./dto/create-profile.dto";
 import { UpdateProfileDto } from "./dto/update-profile.dto";
 import { ProfilesService } from "./profiles.service";
@@ -10,7 +23,9 @@ import { AuthGuard } from "@nestjs/passport";
 @ApiBearerAuth()
 @Controller("profiles")
 export class ProfilesController {
-	constructor(private readonly profilesService: ProfilesService) {}
+	constructor(
+		private readonly profilesService: ProfilesService,
+	) {}
 
 	@Post()
 	@ApiOperation({
@@ -40,7 +55,10 @@ export class ProfilesController {
 	@ApiOperation({
 		summary: "Patch Profile state information",
 	})
-	async update(@Param("id") id: string, @Body() dto: UpdateProfileDto) {
+	async update(
+		@Param("id") id: string,
+		@Body() dto: UpdateProfileDto,
+	) {
 		return await this.profilesService.update(id, dto);
 	}
 

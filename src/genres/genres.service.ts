@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException, UnauthorizedException } from "@nestjs/common";
+import {
+	Injectable,
+	NotFoundException,
+	UnauthorizedException,
+} from "@nestjs/common";
 import { CreateGenreDto } from "./dto/create-genre.dto";
 import { Genre } from "./entities/genre.entity";
 import { PrismaService } from "src/prisma/prisma.service";
@@ -22,7 +26,9 @@ export class GenresService {
 		});
 
 		if (!res) {
-			throw new NotFoundException("Registro com o ${id}");
+			throw new NotFoundException(
+				"Registro com o ${id}",
+			);
 		}
 
 		return res;
@@ -32,30 +38,50 @@ export class GenresService {
 		return await this.findById(id);
 	}
 
-	async create(dto: CreateGenreDto, user: Users): Promise<Genre> {
+	async create(
+		dto: CreateGenreDto,
+		user: Users,
+	): Promise<Genre> {
 		if (user.isAdmin) {
 			const data: Genre = { ...dto };
-			return await this.prisma.genres.create({ data });
+			return await this.prisma.genres.create({
+				data,
+			});
 		} else {
-			throw new UnauthorizedException("not authorized");
+			throw new UnauthorizedException(
+				"not authorized",
+			);
 		}
 	}
 
-	async update(id: string, dto: UpdateGenreDto, user: Users): Promise<Genre> {
+	async update(
+		id: string,
+		dto: UpdateGenreDto,
+		user: Users,
+	): Promise<Genre> {
 		if (user.isAdmin) {
 			await this.findById(id);
 			const data: Partial<Genre> = { ...dto };
-			return await this.prisma.genres.update({ where: { id }, data });
+			return await this.prisma.genres.update({
+				where: { id },
+				data,
+			});
 		} else {
-			throw new UnauthorizedException("not authorized");
+			throw new UnauthorizedException(
+				"not authorized",
+			);
 		}
 	}
 
 	async delete(id: string, user: Users) {
 		if (user.isAdmin) {
-			return await this.prisma.genres.delete({ where: { id } });
+			return await this.prisma.genres.delete({
+				where: { id },
+			});
 		} else {
-			throw new UnauthorizedException("not authorized");
+			throw new UnauthorizedException(
+				"not authorized",
+			);
 		}
 	}
 }
