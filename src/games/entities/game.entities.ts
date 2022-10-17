@@ -1,4 +1,4 @@
-import { Gender } from "src/genders/entities/gender.entity";
+import { Genre } from "src/genres/entities/genre.entity";
 
 export class Game {
 	id: string;
@@ -9,7 +9,7 @@ export class Game {
 	score: string;
 	trailer: string;
 	gameplay: string;
-	gender?: Gender[];
+	genres?: Genre[];
 	createdAt?: Date;
 	updatedAt?: Date;
 }

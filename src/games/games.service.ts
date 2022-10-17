@@ -13,7 +13,7 @@ export class GameService {
 	async findAll() {
 		return await this.prisma.games.findMany({
 			include: {
-				genders: true,
+				genres: true,
 			},
 		});
 	}
@@ -22,7 +22,7 @@ export class GameService {
 		const res = await this.prisma.games.findUnique({
 			where: { id },
 			include: {
-				genders: true,
+				genres: true,
 			},
 		});
 
@@ -42,9 +42,9 @@ export class GameService {
 				score: dto.score,
 				trailer: dto.trailer,
 				gameplay: dto.gameplay,
-				genders: {
+				genres: {
 					connect: {
-						id: dto.genderId,
+						id: dto.genreId,
 					},
 				},
 			};
@@ -53,7 +53,7 @@ export class GameService {
 				.create({
 					data,
 					include: {
-						genders: true,
+						genres: true,
 					},
 				})
 				.catch(UnprocessableEntityException);
@@ -72,9 +72,9 @@ export class GameService {
 				score: dto.score,
 				trailer: dto.trailer,
 				gameplay: dto.gameplay,
-				genders: {
+				genres: {
 					connect: {
-						id: dto.genderId,
+						id: dto.genreId,
 					},
 				},
 			};
@@ -83,7 +83,7 @@ export class GameService {
 					where: { id },
 					data,
 					include: {
-						genders: true,
+						genres: true,
 					},
 				})
 				.catch(UnprocessableEntityException);

@@ -17,7 +17,7 @@ export default {
 ## Rotas que não necessitam autenticação:\n
 	Criação de usuários		@POST /users\n
 	Autenticação 	 		@POST /auth/login\n
-	Visualização de gêneros	@GET /genders\n
+	Visualização de gêneros	@GET /genres\n
     Status do Servidor		@GET /status\n
 \n
 # IMPORTANTE!\n
@@ -125,7 +125,7 @@ Somente **administradores** podem gerenciar jogos\n
 Vá até *PATCH /games/{id}*\n
 Inclua no **body** da requisição somente a propriedade conforme exemplo:\n
 		{
-			"genderId": "75s0a58e-fee1-4dqf-93ga-56e65522az1"
+			"genreId": "75s0a58e-fee1-4dqf-93ga-56e65522az1"
 		}
 \n
 Rotas disponíveis:
@@ -145,24 +145,24 @@ Rotas disponíveis:
 	@DELETE /games/{id}\n
 		Deleta um jogo pelo ID\n
 \n
-# GENDERS\n
+# GENRES\n
 Esta rota gerencia todos os **gêneros** da aplicação.\n
 Os gêneros são conectados aos **JOGOS** e são estes que irão *FILTRAR* por categoria a exibição do conteúdo\n
 Rotas disponíveis:
 \n
-	@POST /genders:\n
+	@POST /genres:\n
 		Criar um novo gênero\n
 		\n
-	@GET /genders:\n
+	@GET /genres:\n
 		Visualizar todos os gêneros\n
 		\n
-	@GET /genders/{id}\n
+	@GET /genres/{id}\n
 		Buscar um gênero pelo ID\n
 		\n
-	@PATCH /genders/{id}\n
+	@PATCH /genres/{id}\n
 		Atualiza um gênero pelo ID\n
 		\n
-	@DELETE /genders/{id}\n
+	@DELETE /genres/{id}\n
 		Deleta um gênero pelo ID\n
 \n
 \n

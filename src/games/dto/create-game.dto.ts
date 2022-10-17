@@ -55,7 +55,7 @@ export class CreateGameDto {
 	@IsUUID(undefined, { each: true })
 	@ApiProperty({
 		example: "54c0a38e-fee1-4dbf-95ff-56e352211ef1",
-		description: "gender id",
+		description: "genre id",
 	})
-	genderId: string;
+	genreId: string;
 }
