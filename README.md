@@ -60,7 +60,7 @@ Acesse [http://localhost:3333](http://localhost:3333) para visualizá-lo em seu 
 
 > > ## Autor
 > >
-> > -   [Alexandre dos Santos Pereira Neto](https://github.com/Malkavianson)
+> > -   [Alexandre dos Santos Pereira Neto](https://www.linkedin.com/in/alexandrespneto/)
 
 ## Licença
 
