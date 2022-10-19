@@ -1,7 +1,7 @@
 {
 	"name": "gamingdevs",
 	"version": "0.0.1",
-	"description": "Fake Games API",
+	"description": "Games info API",
 	"author": "Malkavianson",
 	"license": "MIT",
 	"scripts": {

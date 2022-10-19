@@ -43,7 +43,7 @@ export class AuthController {
 		summary: "Returns current user",
 	})
 	@ApiBearerAuth()
-	profile(@LoggedUser() user: Users) {
+	profile(@LoggedUser() user: Users): Users {
 		return user;
 	}
 }

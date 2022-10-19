@@ -9,6 +9,7 @@ import { CreateUserDto } from "./dto/create-user.dto";
 import { UpdateUserDto } from "./dto/update-user.dto";
 import * as bcrypt from "bcryptjs";
 import { Users } from "./entities/users.entities";
+import { Profiles } from "src/profiles/entities/profiles.entities";
 
 @Injectable()
 export class UsersService {
@@ -22,7 +23,13 @@ export class UsersService {
 
 	constructor(private readonly prisma: PrismaService) {}
 
-	async create(dto: CreateUserDto) {
+	async create(dto: CreateUserDto): Promise<{
+		id: string;
+		name: string;
+		email: string;
+		createdAt: Date;
+		updatedAt: Date;
+	}> {
 		const hashedPassword = await bcrypt.hash(
 			dto.password,
 			8,
@@ -41,7 +48,15 @@ export class UsersService {
 			.catch(handleErrorConstraintUnique);
 	}
 
-	async findAll() {
+	async findAll(): Promise<
+		{
+			id: string;
+			name: string;
+			email: string;
+			updatedAt: Date;
+			createdAt: Date;
+		}[]
+	> {
 		const res = await this.prisma.users.findMany({
 			select: this.userSelect,
 		});
@@ -49,7 +64,16 @@ export class UsersService {
 		return res;
 	}
 
-	async verifyIdAndReturnUser(id: string) {
+	async verifyIdAndReturnUser(id: string): Promise<{
+		id: string;
+		isAdmin: boolean;
+		cpf: string;
+		profile: Profiles[];
+		name: string;
+		email: string;
+		updatedAt: Date;
+		createdAt: Date;
+	}> {
 		const user = await this.prisma.users.findUnique({
 			where: { id },
 			select: {
@@ -69,7 +93,16 @@ export class UsersService {
 		return user;
 	}
 
-	async findOne(id: string) {
+	async findOne(id: string): Promise<{
+		id: string;
+		isAdmin: boolean;
+		cpf: string;
+		profile: Profiles[];
+		name: string;
+		email: string;
+		updatedAt: Date;
+		createdAt: Date;
+	}> {
 		return await this.verifyIdAndReturnUser(id);
 	}
 
@@ -77,7 +110,13 @@ export class UsersService {
 		id: string,
 		dto: UpdateUserDto,
 		user: Users,
-	) {
+	): Promise<{
+		id: string;
+		name: string;
+		email: string;
+		createdAt: Date;
+		updatedAt: Date;
+	}> {
 		const thisUser = await this.verifyIdAndReturnUser(
 			id,
 		);
@@ -113,7 +152,19 @@ export class UsersService {
 		}
 	}
 
-	async remove(id: string, user: Users) {
+	async remove(
+		id: string,
+		user: Users,
+	): Promise<
+		| {
+				id: string;
+				name: string;
+				email: string;
+				updatedAt: Date;
+				createdAt: Date;
+		  }
+		| UnauthorizedException
+	> {
 		const thisUser = await this.verifyIdAndReturnUser(
 			id,
 		);
@@ -129,7 +180,7 @@ export class UsersService {
 				select: this.userSelect,
 			});
 		} else {
-			throw new UnauthorizedException(
+			return new UnauthorizedException(
 				"not authorized",
 			);
 		}

@@ -79,7 +79,7 @@ export class GamesController {
 	delete(
 		@LoggedUser() user: Users,
 		@Param("id") id: string,
-	) {
+	): void {
 		this.gameService.delete(id, user);
 	}
 }
