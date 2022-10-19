@@ -74,7 +74,7 @@ export class FavoritesService {
 				});
 			} else {
 				throw new UnauthorizedException(
-					"Not allow to favorite a game in this user. Please verify profile.id",
+					"User is not allowed to favorite a game of this profile. Please verify profile.id",
 				);
 			}
 		}
@@ -100,7 +100,7 @@ export class FavoritesService {
 				);
 			} else {
 				throw new UnauthorizedException(
-					"Not allow to get favorites of this profile. Please verify profile.id",
+					"User is not allowed to get favorites of this profile. Please verify profile.id",
 				);
 			}
 		}
@@ -109,7 +109,7 @@ export class FavoritesService {
 	async dislikeGame(
 		{ favoriteId }: DislikeGameDto,
 		user: Users,
-	): Promise<Favorites> {
+	) {
 		this.verifyIdAndReturnGameFav(favoriteId);
 		if (user.isAdmin) {
 			return this.prisma.favorites.delete({
@@ -132,8 +132,8 @@ export class FavoritesService {
 					},
 				});
 			} else {
-				throw new UnauthorizedException(
-					"Not allow to delete favorites on this user. Please verify profile.id",
+				return new UnauthorizedException(
+					"User is not allowed to delete favorites of this profile. Please verify profile.id",
 				);
 			}
 		}

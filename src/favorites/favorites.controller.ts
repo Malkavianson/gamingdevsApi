@@ -69,7 +69,7 @@ export class FavoritesController {
 	async dislikeGame(
 		@Body() dto: DislikeGameDto,
 		@LoggedUser() user: Users,
-	): Promise<Favorite> {
+	) {
 		return this.favoritesService.dislikeGame(dto, user);
 	}
 }
