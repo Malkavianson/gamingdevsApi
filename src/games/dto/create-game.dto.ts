@@ -1,5 +1,9 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsNotEmpty, IsString, IsUUID } from "class-validator";
+import {
+	IsNotEmpty,
+	IsString,
+	IsUUID,
+} from "class-validator";
 
 export class CreateGameDto {
 	@IsString()
@@ -12,14 +16,16 @@ export class CreateGameDto {
 
 	@IsString()
 	@ApiProperty({
-		example: "https://www.imdb.com/title/tt1774580/mediaviewer/rm1344495104/?ref_=tt_ov_i",
+		example:
+			"https://www.imdb.com/title/tt1774580/mediaviewer/rm1344495104/?ref_=tt_ov_i",
 		description: "Game cover URL image",
 	})
 	image: string;
 
 	@IsString()
 	@ApiProperty({
-		example: "Follow Rick and his mysterious Terror Mask as he unmercifully tears, cuts and beats his way through denizens of unearthly creatures in an epic adventure to rescue his girlfriend from the clutches of deranged occult figure Dr. West.",
+		example:
+			"Follow Rick and his mysterious Terror Mask as he unmercifully tears, cuts and beats his way through denizens of unearthly creatures in an epic adventure to rescue his girlfriend from the clutches of deranged occult figure Dr. West.",
 		description: "Game description",
 	})
 	description: string;
@@ -40,7 +46,8 @@ export class CreateGameDto {
 
 	@IsString()
 	@ApiProperty({
-		example: "https://www.youtube.com/watch?v=1s6CumuY0BI",
+		example:
+			"https://www.youtube.com/watch?v=1s6CumuY0BI",
 		description: "Imdb Score rating",
 	})
 	trailer: string;

@@ -1,5 +1,9 @@
 import handleErrorConstraintUnique from "../utils/handle-error-unique.util";
-import { Injectable, NotFoundException, UnauthorizedException } from "@nestjs/common";
+import {
+	Injectable,
+	NotFoundException,
+	UnauthorizedException,
+} from "@nestjs/common";
 import { PrismaService } from "src/prisma/prisma.service";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { UpdateUserDto } from "./dto/update-user.dto";
@@ -19,7 +23,10 @@ export class UsersService {
 	constructor(private readonly prisma: PrismaService) {}
 
 	async create(dto: CreateUserDto) {
-		const hashedPassword = await bcrypt.hash(dto.password, 8);
+		const hashedPassword = await bcrypt.hash(
+			dto.password,
+			8,
+		);
 
 		const data: CreateUserDto = {
 			name: dto.name,
@@ -29,7 +36,9 @@ export class UsersService {
 			isAdmin: dto.isAdmin,
 		};
 
-		return this.prisma.users.create({ data, select: this.userSelect }).catch(handleErrorConstraintUnique);
+		return this.prisma.users
+			.create({ data, select: this.userSelect })
+			.catch(handleErrorConstraintUnique);
 	}
 
 	async findAll() {
@@ -52,7 +61,9 @@ export class UsersService {
 		});
 
 		if (!user) {
-			throw new NotFoundException(`Entrada de id '${id}' não encontrada`);
+			throw new NotFoundException(
+				`Entrada de id '${id}' não encontrada`,
+			);
 		}
 
 		return user;
@@ -62,25 +73,50 @@ export class UsersService {
 		return await this.verifyIdAndReturnUser(id);
 	}
 
-	async update(id: string, dto: UpdateUserDto, user: Users) {
-		const thisUser = await this.verifyIdAndReturnUser(id);
+	async update(
+		id: string,
+		dto: UpdateUserDto,
+		user: Users,
+	) {
+		const thisUser = await this.verifyIdAndReturnUser(
+			id,
+		);
 
 		if (dto.password) {
-			const hashedPassword = await bcrypt.hash(dto.password, 8);
+			const hashedPassword = await bcrypt.hash(
+				dto.password,
+				8,
+			);
 			dto.password = hashedPassword;
 		}
 		if (user.isAdmin) {
-			return await this.prisma.users.update({ where: { id }, data: dto, select: this.userSelect }).catch(handleErrorConstraintUnique);
+			return await this.prisma.users
+				.update({
+					where: { id },
+					data: dto,
+					select: this.userSelect,
+				})
+				.catch(handleErrorConstraintUnique);
 		}
 		if (thisUser.id === user.id) {
-			return await this.prisma.users.update({ where: { id }, data: dto, select: this.userSelect }).catch(handleErrorConstraintUnique);
+			return await this.prisma.users
+				.update({
+					where: { id },
+					data: dto,
+					select: this.userSelect,
+				})
+				.catch(handleErrorConstraintUnique);
 		} else {
-			throw new UnauthorizedException("not authorized");
+			throw new UnauthorizedException(
+				"not authorized",
+			);
 		}
 	}
 
 	async remove(id: string, user: Users) {
-		const thisUser = await this.verifyIdAndReturnUser(id);
+		const thisUser = await this.verifyIdAndReturnUser(
+			id,
+		);
 		if (user.isAdmin) {
 			return await this.prisma.users.delete({
 				where: { id },
@@ -93,7 +129,9 @@ export class UsersService {
 				select: this.userSelect,
 			});
 		} else {
-			throw new UnauthorizedException("not authorized");
+			throw new UnauthorizedException(
+				"not authorized",
+			);
 		}
 	}
 }

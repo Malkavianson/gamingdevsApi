@@ -1,4 +1,7 @@
-import { Injectable, NotFoundException } from "@nestjs/common";
+import {
+	Injectable,
+	NotFoundException,
+} from "@nestjs/common";
 import { ResponseLoginDto } from "./dto/responseLogin.dto";
 import { PrismaService } from "src/prisma/prisma.service";
 import { Users } from "src/users/entities/users.entities";
@@ -8,23 +11,40 @@ import * as bcrypt from "bcryptjs";
 
 @Injectable()
 export class AuthService {
-	constructor(private readonly prisma: PrismaService, private readonly jwtService: JwtService) {}
+	constructor(
+		private readonly prisma: PrismaService,
+		private readonly jwtService: JwtService,
+	) {}
 
-	async login({ cpf, password }: LoginDto): Promise<ResponseLoginDto> {
-		const user: Users = await this.prisma.users.findUnique({ where: { cpf } }).then(res => {
-			if (res) {
-				const passwordMatch: Promise<boolean> = bcrypt.compare(password, res.password).then(res => res);
-				if (!passwordMatch) {
-					throw new NotFoundException("Invalid cpf or password ");
+	async login({
+		cpf,
+		password,
+	}: LoginDto): Promise<ResponseLoginDto> {
+		const user: Users = await this.prisma.users
+			.findUnique({ where: { cpf } })
+			.then(res => {
+				if (res) {
+					const passwordMatch: Promise<boolean> =
+						bcrypt
+							.compare(password, res.password)
+							.then(res => res);
+					if (!passwordMatch) {
+						throw new NotFoundException(
+							"Invalid cpf or password ",
+						);
+					}
+					return res;
+				} else {
+					throw new NotFoundException(
+						"Invalid cpf or password ",
+					);
 				}
-				return res;
-			} else {
-				throw new NotFoundException("Invalid cpf or password ");
-			}
-		});
+			});
 
 		if (!user) {
-			throw new NotFoundException("Invalid cpf or password ");
+			throw new NotFoundException(
+				"Invalid cpf or password ",
+			);
 		}
 
 		delete user.password;
