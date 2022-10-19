@@ -8,6 +8,7 @@ import {
 	Param,
 	Patch,
 	Post,
+	UnauthorizedException,
 	UseGuards,
 } from "@nestjs/common";
 import { GenresService } from "./genres.service";
@@ -89,7 +90,7 @@ export class GenresController {
 	async delete(
 		@LoggedUser() user: Users,
 		@Param("id") id: string,
-	) {
+	): Promise<UnauthorizedException | Genre> {
 		return await this.genreservice.delete(id, user);
 	}
 }

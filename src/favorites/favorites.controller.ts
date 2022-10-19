@@ -7,6 +7,7 @@ import {
 	HttpStatus,
 	Param,
 	Post,
+	UnauthorizedException,
 	UseGuards,
 } from "@nestjs/common";
 import {
@@ -69,7 +70,7 @@ export class FavoritesController {
 	async dislikeGame(
 		@Body() dto: DislikeGameDto,
 		@LoggedUser() user: Users,
-	) {
+	): Promise<Favorite | UnauthorizedException> {
 		return this.favoritesService.dislikeGame(dto, user);
 	}
 }

@@ -1,6 +1,14 @@
-# [NEST API GamingDevs](https://gamingdev.onrender.com)
+# NEST API GamingDevs
 
 #### API em NEST para fins de aprendizagem
+
+### [NEST API GamingDevs](https://gamingdevs.up.railway.app/)
+
+##### [NEST API GamingDevs backup](https://gamingdev.onrender.com)
+
+### [NEST API GamingDevs documentação](https://gamingdevs.up.railway.app/documentation)
+
+##### [NEST API GamingDevs documentação backup](https://gamingdev.onrender.com/documentation)
 
 ![NestJS](https://img.shields.io/badge/nestjs-%23E0234E.svg?style=for-the-badge&logo=nestjs&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
@@ -68,11 +76,18 @@ Acesse [http://localhost:3333](http://localhost:3333) para visualizá-lo em seu 
 
 ## Execução
 
-> ## comandos úteis:
+> ## Comandos úteis:
 >
+> > #### Gerar nova rota de recursos
+> >
 > > -   nest g resource {nome} --no-spec
 >
+> > #### Gerar arquivos.d.ts no PRISMA
+> >
 > > -   prisma generate
+>
+> > #### Atualizar banco de dados
+> >
 > > -   prisma db push
 >
 > ---

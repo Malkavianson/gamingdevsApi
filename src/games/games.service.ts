@@ -9,12 +9,18 @@ import { CreateGameDto } from "./dto/create-game.dto";
 import { UpdateGameDto } from "./dto/update-game.dto";
 import { Prisma } from "@prisma/client";
 import { Users } from "src/users/entities/users.entities";
+import { Game } from "./entities/game.entities";
+import { Genre } from "src/genres/entities/genre.entity";
 
 @Injectable()
 export class GameService {
 	constructor(private readonly prisma: PrismaService) {}
 
-	async findAll() {
+	async findAll(): Promise<
+		(Game & {
+			genres: Genre[];
+		})[]
+	> {
 		return await this.prisma.games.findMany({
 			include: {
 				genres: true,
@@ -22,7 +28,11 @@ export class GameService {
 		});
 	}
 
-	async findById(id: string) {
+	async findById(id: string): Promise<
+		Game & {
+			genres: Genre[];
+		}
+	> {
 		const res = await this.prisma.games.findUnique({
 			where: { id },
 			include: {
@@ -36,7 +46,14 @@ export class GameService {
 		return res;
 	}
 
-	async create(dto: CreateGameDto, user: Users) {
+	async create(
+		dto: CreateGameDto,
+		user: Users,
+	): Promise<
+		Game & {
+			genres: Genre[];
+		}
+	> {
 		if (user.isAdmin) {
 			const data: Prisma.GamesCreateInput = {
 				title: dto.title,
@@ -80,7 +97,11 @@ export class GameService {
 		id: string,
 		dto: UpdateGameDto,
 		user: Users,
-	) {
+	): Promise<
+		Game & {
+			genres: Genre[];
+		}
+	> {
 		if (user.isAdmin) {
 			const data: Prisma.GamesUpdateInput = {
 				title: dto.title,
@@ -121,7 +142,10 @@ export class GameService {
 		}
 	}
 
-	async delete(id: string, user: Users) {
+	async delete(
+		id: string,
+		user: Users,
+	): Promise<UnauthorizedException> {
 		if (user.isAdmin) {
 			const data = await this.findById(id);
 			await this.prisma.userToGame.create({

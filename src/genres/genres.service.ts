@@ -73,7 +73,10 @@ export class GenresService {
 		}
 	}
 
-	async delete(id: string, user: Users) {
+	async delete(
+		id: string,
+		user: Users,
+	): Promise<Genre | UnauthorizedException> {
 		if (user.isAdmin) {
 			return await this.prisma.genres.delete({
 				where: { id },

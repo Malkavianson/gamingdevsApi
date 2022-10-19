@@ -10,7 +10,7 @@ import { AppModule } from "./app.module";
 
 const PORT = process.env.PORT || 3333;
 
-async function bootstrap() {
+async function bootstrap(): Promise<void> {
 	console.clear();
 	console.log("Starting and validating");
 

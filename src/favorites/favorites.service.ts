@@ -3,11 +3,12 @@ import {
 	NotFoundException,
 	UnauthorizedException,
 } from "@nestjs/common";
-import { Favorites, Prisma } from "@prisma/client";
+import { Prisma } from "@prisma/client";
 import { Users } from "src/users/entities/users.entities";
 import { PrismaService } from "../prisma/prisma.service";
 import { DislikeGameDto } from "./dto/dislike.game.dto";
 import { FavoriteGameDto } from "./dto/favorite.game.dto";
+import { Favorite } from "./entities/favorites.entities";
 
 @Injectable()
 export class FavoritesService {
@@ -15,8 +16,8 @@ export class FavoritesService {
 
 	async verifyIdAndReturnGameFav(
 		favoriteId: string,
-	): Promise<Favorites> {
-		const favorite: Favorites | null =
+	): Promise<Favorite> {
+		const favorite: Favorite | null =
 			await this.prisma.favorites.findUnique({
 				where: { id: favoriteId },
 			});
@@ -33,7 +34,7 @@ export class FavoritesService {
 	async favoriteGame(
 		dto: FavoriteGameDto,
 		user: Users,
-	): Promise<Favorites> {
+	): Promise<Favorite> {
 		if (user.isAdmin) {
 			const data: Prisma.FavoritesCreateInput = {
 				profile: {
@@ -83,7 +84,7 @@ export class FavoritesService {
 	async getProfileFavorites(
 		id: string,
 		user: Users,
-	): Promise<Favorites[]> {
+	): Promise<Favorite[]> {
 		if (user.isAdmin) {
 		} else {
 			const isOwner =
@@ -109,7 +110,7 @@ export class FavoritesService {
 	async dislikeGame(
 		{ favoriteId }: DislikeGameDto,
 		user: Users,
-	) {
+	): Promise<Favorite | UnauthorizedException> {
 		this.verifyIdAndReturnGameFav(favoriteId);
 		if (user.isAdmin) {
 			return this.prisma.favorites.delete({
