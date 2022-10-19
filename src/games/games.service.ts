@@ -137,7 +137,7 @@ export class GameService {
 				where: { id },
 			});
 		} else {
-			throw new UnauthorizedException(
+			return new UnauthorizedException(
 				"not authorized",
 			);
 		}
