@@ -8,6 +8,7 @@ import {
 	Param,
 	Patch,
 	Post,
+	UnauthorizedException,
 	UseGuards,
 } from "@nestjs/common";
 import {
@@ -21,6 +22,7 @@ import { UsersService } from "./users.service";
 import { AuthGuard } from "@nestjs/passport";
 import { LoggedUser } from "src/auth/loggeduser.decorator";
 import { Users } from "./entities/users.entities";
+import { Profiles } from "src/profiles/entities/profiles.entities";
 
 @ApiTags("Users")
 @Controller("users")
@@ -33,7 +35,13 @@ export class UsersController {
 	@ApiOperation({
 		summary: "Create a new User",
 	})
-	async create(@Body() dto: CreateUserDto) {
+	async create(@Body() dto: CreateUserDto): Promise<{
+		id: string;
+		name: string;
+		email: string;
+		createdAt: Date;
+		updatedAt: Date;
+	}> {
 		return await this.usersService.create(dto);
 	}
 
@@ -43,7 +51,15 @@ export class UsersController {
 	@ApiOperation({
 		summary: "Returns all users",
 	})
-	async findAll() {
+	async findAll(): Promise<
+		{
+			id: string;
+			name: string;
+			email: string;
+			updatedAt: Date;
+			createdAt: Date;
+		}[]
+	> {
 		return await this.usersService.findAll();
 	}
 
@@ -53,7 +69,16 @@ export class UsersController {
 	@ApiOperation({
 		summary: "Returns one User by ID",
 	})
-	async findOne(@Param("id") id: string) {
+	async findOne(@Param("id") id: string): Promise<{
+		id: string;
+		isAdmin: boolean;
+		cpf: string;
+		profile: Profiles[];
+		name: string;
+		email: string;
+		updatedAt: Date;
+		createdAt: Date;
+	}> {
 		return await this.usersService.findOne(id);
 	}
 
@@ -67,7 +92,13 @@ export class UsersController {
 		@LoggedUser() user: Users,
 		@Param("id") id: string,
 		@Body() dto: UpdateUserDto,
-	) {
+	): Promise<{
+		id: string;
+		name: string;
+		email: string;
+		createdAt: Date;
+		updatedAt: Date;
+	}> {
 		return await this.usersService.update(
 			id,
 			dto,
@@ -85,7 +116,16 @@ export class UsersController {
 	async remove(
 		@LoggedUser() user: Users,
 		@Param("id") id: string,
-	) {
+	): Promise<
+		| {
+				id: string;
+				name: string;
+				email: string;
+				updatedAt: Date;
+				createdAt: Date;
+		  }
+		| UnauthorizedException
+	> {
 		return await this.usersService.remove(id, user);
 	}
 }

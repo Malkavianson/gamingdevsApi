@@ -9,12 +9,16 @@ import { UpdateProfileDto } from "./dto/update-profile.dto";
 import { PrismaService } from "src/prisma/prisma.service";
 import { Prisma } from "@prisma/client";
 import { Users } from "src/users/entities/users.entities";
+import { Profiles } from "./entities/profiles.entities";
 
 @Injectable()
 export class ProfilesService {
 	constructor(private readonly prisma: PrismaService) {}
 
-	async create(dto: CreateProfileDto, user: Users) {
+	async create(
+		dto: CreateProfileDto,
+		user: Users,
+	): Promise<Profiles> {
 		if (user.isAdmin) {
 			const data: Prisma.ProfilesCreateInput = {
 				title: dto.title,
@@ -46,7 +50,15 @@ export class ProfilesService {
 		}
 	}
 
-	async findAll() {
+	async findAll(): Promise<
+		(Profiles & {
+			user: {
+				id: string;
+				name: string;
+				email: string;
+			};
+		})[]
+	> {
 		return await this.prisma.profiles.findMany({
 			include: {
 				user: {
@@ -60,7 +72,15 @@ export class ProfilesService {
 		});
 	}
 
-	async verifyIdAndReturnProfile(id: string) {
+	async verifyIdAndReturnProfile(id: string): Promise<
+		Profiles & {
+			user: {
+				id: string;
+				name: string;
+				email: string;
+			};
+		}
+	> {
 		const profile =
 			await this.prisma.profiles.findUnique({
 				where: { id },
@@ -84,7 +104,15 @@ export class ProfilesService {
 		return profile;
 	}
 
-	async findOne(id: string) {
+	async findOne(id: string): Promise<
+		Profiles & {
+			user: {
+				id: string;
+				name: string;
+				email: string;
+			};
+		}
+	> {
 		return await this.verifyIdAndReturnProfile(id);
 	}
 
@@ -92,7 +120,7 @@ export class ProfilesService {
 		id: string,
 		dto: UpdateProfileDto,
 		user: Users,
-	) {
+	): Promise<Profiles> {
 		const isOwner = await this.verifyIdAndReturnProfile(
 			id,
 		);
@@ -116,7 +144,16 @@ export class ProfilesService {
 		}
 	}
 
-	async remove(id: string, user: Users) {
+	async remove(
+		id: string,
+		user: Users,
+	): Promise<
+		| {
+				id: string;
+				title: string;
+		  }
+		| UnauthorizedException
+	> {
 		const isOwner = await this.verifyIdAndReturnProfile(
 			id,
 		);
