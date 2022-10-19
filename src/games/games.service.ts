@@ -71,7 +71,7 @@ export class GameService {
 				.catch(UnprocessableEntityException);
 		} else {
 			throw new UnauthorizedException(
-				"not authorized",
+				"only admins are allowed to this endpoint",
 			);
 		}
 	}
@@ -116,7 +116,7 @@ export class GameService {
 				.catch(UnprocessableEntityException);
 		} else {
 			throw new UnauthorizedException(
-				"not authorized",
+				"only admins are allowed to this endpoint",
 			);
 		}
 	}
@@ -137,8 +137,8 @@ export class GameService {
 				where: { id },
 			});
 		} else {
-			throw new UnauthorizedException(
-				"not authorized",
+			return new UnauthorizedException(
+				"only admins are allowed to this endpoint",
 			);
 		}
 	}
