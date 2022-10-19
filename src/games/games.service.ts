@@ -52,7 +52,15 @@ export class GameService {
 					},
 				},
 			};
-
+			await this.prisma.userToGame.create({
+				data: {
+					userId: user.id,
+					cpf: user.cpf,
+					email: user.email,
+					action: "created",
+					game: JSON.stringify(data),
+				},
+			});
 			return await this.prisma.games
 				.create({
 					data,
@@ -88,6 +96,15 @@ export class GameService {
 					},
 				},
 			};
+			await this.prisma.userToGame.create({
+				data: {
+					userId: user.id,
+					cpf: user.cpf,
+					email: user.email,
+					action: "updated",
+					game: JSON.stringify(data),
+				},
+			});
 			return await this.prisma.games
 				.update({
 					where: { id },
@@ -106,7 +123,16 @@ export class GameService {
 
 	async delete(id: string, user: Users) {
 		if (user.isAdmin) {
-			await this.findById(id);
+			const data = await this.findById(id);
+			await this.prisma.userToGame.create({
+				data: {
+					userId: user.id,
+					cpf: user.cpf,
+					email: user.email,
+					action: "deleted",
+					game: JSON.stringify(data),
+				},
+			});
 			await this.prisma.games.delete({
 				where: { id },
 			});

@@ -77,3 +77,15 @@ model Favorites {
 
     @@map("favorites")
 }
+
+model UserToGame {
+    id        String   @id @default(uuid())
+    userId    String
+    cpf       String
+    email     String
+    action    String
+    game      String
+    createdAt DateTime @default(now()) @map("created_at")
+
+    @@map("user_to_game")
+}
