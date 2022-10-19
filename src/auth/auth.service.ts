@@ -17,11 +17,11 @@ export class AuthService {
 	) {}
 
 	async login({
-		cpf,
+		email,
 		password,
 	}: LoginDto): Promise<ResponseLoginDto> {
 		const user: Users = await this.prisma.users
-			.findUnique({ where: { cpf } })
+			.findUnique({ where: { email } })
 			.then(res => {
 				if (res) {
 					const passwordMatch: Promise<boolean> =
@@ -30,13 +30,13 @@ export class AuthService {
 							.then(res => res);
 					if (!passwordMatch) {
 						throw new NotFoundException(
-							"Invalid cpf or password ",
+							"Invalid email or password ",
 						);
 					}
 					return res;
 				} else {
 					throw new NotFoundException(
-						"Invalid cpf or password ",
+						"Invalid email or password ",
 					);
 				}
 			});
@@ -49,7 +49,9 @@ export class AuthService {
 
 		delete user.password;
 
-		const token: string = this.jwtService.sign({ cpf });
+		const token: string = this.jwtService.sign({
+			email,
+		});
 
 		return { token, user };
 	}
