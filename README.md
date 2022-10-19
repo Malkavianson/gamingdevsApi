@@ -6,9 +6,9 @@
 
 ##### [NEST API GamingDevs backup](https://gamingdev.onrender.com)
 
-### [NEST API GamingDevs documentação](https://gamingdevs.up.railway.app/documentation)
+### [Documentação](https://gamingdevs.up.railway.app/documentation)
 
-##### [NEST API GamingDevs documentação backup](https://gamingdev.onrender.com/documentation)
+##### [Documentação backup](https://gamingdev.onrender.com/documentation)
 
 ![NestJS](https://img.shields.io/badge/nestjs-%23E0234E.svg?style=for-the-badge&logo=nestjs&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
