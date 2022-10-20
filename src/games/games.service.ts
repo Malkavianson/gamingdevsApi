@@ -111,12 +111,15 @@ export class GameService {
 				score: dto.score,
 				trailer: dto.trailer,
 				gameplay: dto.gameplay,
-				genres: {
+				genres: undefined,
+			};
+			if (dto.genreId) {
+				data.genres = {
 					connect: {
 						id: dto.genreId,
 					},
-				},
-			};
+				};
+			}
 			await this.prisma.userToGame.create({
 				data: {
 					userId: user.id,
