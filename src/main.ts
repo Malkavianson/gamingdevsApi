@@ -33,7 +33,7 @@ async function bootstrap(): Promise<void> {
 			`Para acessar a documentação completa e um passo a passo detalhado da utilização desta aplicação acesse a rota /documentation ou clique aqui.`,
 			"/documentation",
 		)
-		.setVersion("1.1")
+		.setVersion("1.2")
 		.addTag("Auth")
 		.addTag("Users")
 		.addTag("Profiles")
@@ -48,12 +48,8 @@ async function bootstrap(): Promise<void> {
 	const config2 = new DocumentBuilder()
 		.setTitle("GamingDevs")
 		.setDescription(sDescription.full)
-		.setExternalDoc(
-			`https://github.com/Malkavianson/gamingdevsApi/issues`,
-			" https://github.com/Malkavianson/gamingdevsApi/issues",
-		)
 		.setExternalDoc(`Voltar para a HOME`, "/docs")
-		.setVersion("1.1")
+		.setVersion("1.2")
 		.addTag("Status")
 		.build();
 
