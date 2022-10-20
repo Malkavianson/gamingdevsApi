@@ -1,8 +1,8 @@
 # compiled output
 /dist
 /node_modules
-.env
 .eslintrc.js
+.env
 
 # Logs
 logs
