@@ -22,6 +22,14 @@ export default {
 \n
 # IMPORTANTE!\n
 A API ainda possui limitações e ainda está em construção.\n
+\n
+### É recomendado que usuários cadastrados através do **front-end** possuam a seguinte configuração de credenciais:
+	{
+		isAdmin: false
+	}
+\n
+#### _Caso queira gerar credenciais em seu website, lembre-se que é prudente supervisionar o acesso à função._\n
+\n
 Caso encontre erros ou tenha sugestões, favor abrir um card em:\n
 		https://github.com/Malkavianson/gamingdevsApi/issues\n
 	`,
@@ -168,6 +176,14 @@ Rotas disponíveis:
 \n
 # IMPORTANTE!\n
 A API ainda possui limitações e ainda está em construção.\n
+\n
+### É recomendado que usuários cadastrados através do **front-end** possuam a seguinte configuração de credenciais:
+	{
+		isAdmin: false
+	}
+\n
+#### _Caso queira gerar credenciais em seu website, lembre-se que é prudente supervisionar o acesso à função._\n
+\n
 Caso encontre erros ou tenha sugestões, favor abrir um card em:\n
 		https://github.com/Malkavianson/gamingdevsApi/issues\n
 	`,
