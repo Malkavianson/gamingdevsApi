@@ -36,39 +36,66 @@ export class GamesController {
 	@ApiOperation({
 		summary: "Find all games",
 	})
-	findAll(): Promise<Game[]> {
-		return this.gameService.findAll();
+	async findAll(): Promise<Game[]> {
+		return await this.gameService.findAll();
 	}
 
 	@Get(":id")
 	@ApiOperation({
 		summary: "Find one game by ID",
 	})
-	findbyId(@Param("id") id: string): Promise<Game> {
-		return this.gameService.findById(id);
+	async findbyId(@Param("id") id: string): Promise<Game> {
+		return await this.gameService.findById(id);
+	}
+
+	@Get("search/:order/:sort/:length/:page")
+	@ApiOperation({
+		summary: "Advanced search",
+		description: `
+**order**: setup orderby  *ex.: (title/year/score/favorites/etc)*\n
+**sort**: setup sortedby *ex.: (asc or desc)*\n
+**length**: games per page *ex.: ( 10 )*\n
+**page**: page of games *ex.: ( 1 )*\n
+
+**ORDER** and **SORT** can receive "" insted blank
+
+		`,
+	})
+	async advancedSearch(
+		@Param("order") order: string,
+		@Param("sort") sort: string,
+		@Param("length") length: string,
+		@Param("page") page: string,
+	): Promise<Game[]> {
+		return await this.gameService.advancedSearch(
+			order,
+			sort,
+			+length,
+			+page,
+		);
 	}
 
 	@Post()
 	@ApiOperation({
 		summary: "Register a new game",
 	})
-	create(
+	async create(
 		@LoggedUser() user: Users,
 		@Body() dto: CreateGameDto,
 	): Promise<Game> {
-		return this.gameService.create(dto, user);
+		return await this.gameService.create(dto, user);
 	}
 
 	@Patch(":id")
 	@ApiOperation({
 		summary: "Update one game by ID",
 	})
-	update(
+	async update(
 		@LoggedUser() user: Users,
 		@Param("id") id: string,
 		@Body() dto: UpdateGameDto,
 	): Promise<Game> {
-		return this.gameService.update(id, dto, user);
+		return await this.gameService.update(id, dto, user);
 	}
 
 	@Delete(":id")

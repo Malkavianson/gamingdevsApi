@@ -8,6 +8,8 @@ import { Genre } from "./entities/genre.entity";
 import { PrismaService } from "src/prisma/prisma.service";
 import { UpdateGenreDto } from "./dto/update-genre.dto";
 import { Users } from "src/users/entities/users.entities";
+import { AdvancedSearchParams } from "src/games/games.service";
+import ordering from "src/utils/set-orderBy-params";
 
 @Injectable()
 export class GenresService {
@@ -22,6 +24,38 @@ export class GenresService {
 			where: { id },
 			include: {
 				games: true,
+			},
+		});
+
+		if (!res) {
+			throw new NotFoundException(
+				"Registro com o ${id}",
+			);
+		}
+
+		return res;
+	}
+
+	async advancedSearch(
+		id: string,
+		order: string,
+		sort: string,
+		length: number,
+		page: number,
+	): Promise<Genre> {
+		const orderBy = ordering(order, sort);
+
+		const params: AdvancedSearchParams = {
+			take: length,
+			skip: (page - 1) * length,
+		};
+
+		params.orderBy = orderBy;
+
+		const res = await this.prisma.genres.findUnique({
+			where: { id },
+			include: {
+				games: params,
 			},
 		});
 

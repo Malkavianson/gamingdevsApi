@@ -29,7 +29,9 @@ export class AuthController {
 	@Post("login")
 	@HttpCode(HttpStatus.OK)
 	@ApiOperation({
-		summary: "Login => returns a auth bearer token",
+		summary: "Login",
+		description:
+			"Response.token must be used to allow access",
 	})
 	async login(
 		@Body() loginDto: LoginDto,
