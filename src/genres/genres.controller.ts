@@ -49,6 +49,35 @@ export class GenresController {
 		return await this.genreservice.findOne(id);
 	}
 
+	@Get("search/:id/:order/:sort/:length/:page")
+	@ApiOperation({
+		summary: "Advanced search games by games genres ID",
+		description: `
+**order**: setup orderby  *ex.: (title/year/score/favorites/etc)*\n
+**sort**: setup sortedby *ex.: (asc or desc)*\n
+**length**: games per page *ex.: ( 10 )*\n
+**page**: page of games *ex.: ( 1 )*\n
+
+**ORDER** and **SORT** can receive "" insted blank
+
+		`,
+	})
+	async advancedSearch(
+		@Param("id") id: string,
+		@Param("order") order: string,
+		@Param("sort") sort: string,
+		@Param("length") length: string,
+		@Param("page") page: string,
+	): Promise<Genre> {
+		return await this.genreservice.advancedSearch(
+			id,
+			order,
+			sort,
+			+length,
+			+page,
+		);
+	}
+
 	@Post()
 	@UseGuards(AuthGuard())
 	@ApiBearerAuth()
