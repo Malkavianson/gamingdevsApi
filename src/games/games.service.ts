@@ -11,6 +11,13 @@ import { Prisma } from "@prisma/client";
 import { Users } from "src/users/entities/users.entities";
 import { Game } from "./entities/game.entities";
 import { Genre } from "src/genres/entities/genre.entity";
+import ordering from "src/utils/set-orderBy-params";
+
+export interface AdvancedSearchParams {
+	take: number;
+	skip: number;
+	orderBy?: any;
+}
 
 @Injectable()
 export class GameService {
@@ -44,6 +51,24 @@ export class GameService {
 			throw new NotFoundException(`${id} not found`);
 		}
 		return res;
+	}
+
+	async advancedSearch(
+		order: string,
+		sort: string,
+		length: number,
+		page: number,
+	): Promise<Game[]> {
+		const orderBy = ordering(order, sort);
+
+		const params: AdvancedSearchParams = {
+			take: length,
+			skip: (page - 1) * length,
+		};
+
+		params.orderBy = orderBy;
+
+		return await this.prisma.games.findMany(params);
 	}
 
 	async create(
