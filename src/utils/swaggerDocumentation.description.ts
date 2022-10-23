@@ -147,6 +147,9 @@ Rotas disponíveis:
 	@GET /games/{id}\n
 		Buscar um jogo pelo ID\n
 		\n
+	@GET /games/search/{order}/{sort}/{lenght}/{page}\n
+		Pesquisa jogos por parâmetro\n
+		\n
 	@PATCH /games/{id}\n
 		Atualiza um jogo pelo ID\n
 		\n
@@ -166,6 +169,9 @@ Rotas disponíveis:
 		\n
 	@GET /genres/{id}\n
 		Buscar um gênero pelo ID\n
+		\n
+	@GET /genres/search/{id}/{order}/{sort}/{lenght}/{page}\n
+		Pesquisa jogos de uma categoria por parâmetro\n
 		\n
 	@PATCH /genres/{id}\n
 		Atualiza um gênero pelo ID\n
