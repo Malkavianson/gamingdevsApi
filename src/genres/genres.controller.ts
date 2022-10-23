@@ -53,6 +53,7 @@ export class GenresController {
 	@ApiOperation({
 		summary: "Advanced search games by games genres ID",
 		description: `
+**ID**: Genre ID
 **order**: setup orderby  *ex.: (title/year/score/favorites/etc)*\n
 **sort**: setup sortedby *ex.: (asc or desc)*\n
 **length**: games per page *ex.: ( 10 )*\n
