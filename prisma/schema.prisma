@@ -32,7 +32,7 @@ model Profiles {
     id        String      @id @default(uuid())
     title     String
     imageUrl  String      @default("https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/2048px-Default_pfp.svg.png") @map("imagem_url")
-    user      Users       @relation(fields: [userId], references: [id])
+    user      Users       @relation(fields: [userId], references: [id], onDelete: Cascade)
     userId    String      @map("user_id")
     favorites Favorites[]
     createdAt DateTime    @default(now()) @map("created_at")
@@ -70,7 +70,7 @@ model Genres {
 
 model Favorites {
     id        String   @id @default(uuid())
-    profile   Profiles @relation(fields: [profileId], references: [id])
+    profile   Profiles @relation(fields: [profileId], references: [id], onDelete: Cascade)
     profileId String   @map("profile_id")
     games     Games[]
     createdAt DateTime @default(now()) @map("created_at")
