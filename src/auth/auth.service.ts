@@ -20,30 +20,25 @@ export class AuthService {
 		email,
 		password,
 	}: LoginDto): Promise<ResponseLoginDto> {
-		const user: Users = await this.prisma.users
-			.findUnique({ where: { email } })
-			.then(res => {
-				if (res) {
-					const passwordMatch: Promise<boolean> =
-						bcrypt
-							.compare(password, res.password)
-							.then(res => res);
-					if (!passwordMatch) {
-						throw new NotFoundException(
-							"Invalid email or password ",
-						);
-					}
-					return res;
-				} else {
-					throw new NotFoundException(
-						"Invalid email or password ",
-					);
-				}
+		const user: Users =
+			await this.prisma.users.findUnique({
+				where: { email },
 			});
 
 		if (!user) {
 			throw new NotFoundException(
-				"Invalid cpf or password ",
+				"Invalid email or password ",
+			);
+		}
+
+		const passwordMatch: boolean = await bcrypt.compare(
+			password,
+			user.password,
+		);
+
+		if (!passwordMatch) {
+			throw new NotFoundException(
+				"Invalid email or password ",
 			);
 		}
 
