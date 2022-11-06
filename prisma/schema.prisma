@@ -6,7 +6,7 @@ generator client {
 
 datasource db {
     provider = "postgresql"
-    url      = env("DATABASE_URL")
+    url      = "postgres://gamesdev_user:xi26GcQn0R4hn8PpwQGsC84jtAAoSEod@dpg-cdja6c6n6mpngrtm1nj0-a.oregon-postgres.render.com/gamesdev"
 }
 
 generator erd {

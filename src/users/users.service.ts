@@ -10,6 +10,7 @@ import { UpdateUserDto } from "./dto/update-user.dto";
 import * as bcrypt from "bcryptjs";
 import { Users } from "./entities/users.entities";
 import { Profiles } from "src/profiles/entities/profiles.entities";
+import { JwtService } from "@nestjs/jwt";
 
 @Injectable()
 export class UsersService {
@@ -21,7 +22,10 @@ export class UsersService {
 		createdAt: true,
 	};
 
-	constructor(private readonly prisma: PrismaService) {}
+	constructor(
+		private readonly prisma: PrismaService,
+		private readonly jwtService: JwtService,
+	) {}
 
 	async create(dto: CreateUserDto): Promise<{
 		id: string;
@@ -184,5 +188,20 @@ export class UsersService {
 				"not authorized",
 			);
 		}
+	}
+
+	async findUserForEmail(
+		email: string,
+	): Promise<string[]> {
+		const user = await this.prisma.users.findUnique({
+			where: { email: email },
+		});
+		if (!user) {
+			throw new NotFoundException();
+		}
+		console.log(user);
+		const token = this.jwtService.sign({ email });
+
+		return [user.id, token];
 	}
 }
