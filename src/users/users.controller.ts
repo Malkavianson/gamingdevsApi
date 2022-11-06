@@ -23,6 +23,7 @@ import { AuthGuard } from "@nestjs/passport";
 import { LoggedUser } from "src/auth/loggeduser.decorator";
 import { Users } from "./entities/users.entities";
 import { Profiles } from "src/profiles/entities/profiles.entities";
+import { JwtService } from "@nestjs/jwt";
 
 @ApiTags("Users")
 @Controller("users")
@@ -127,5 +128,21 @@ export class UsersController {
 		| UnauthorizedException
 	> {
 		return await this.usersService.remove(id, user);
+	}
+
+	@Get("/recover/:email")
+	@ApiOperation({
+		summary:
+			"Returns email with link for change password",
+	})
+	async recoverPassword(
+		@Param("email") email: string,
+	): Promise<{ status: number; message: string }> {
+		await this.usersService.findUserForEmail(email);
+
+		return {
+			status: 200,
+			message: "requested password for email",
+		};
 	}
 }
