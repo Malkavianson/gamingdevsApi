@@ -11,7 +11,7 @@ import * as bcrypt from "bcryptjs";
 import { Users } from "./entities/users.entities";
 import { Profiles } from "src/profiles/entities/profiles.entities";
 import { JwtService } from "@nestjs/jwt";
-
+import nodeMailer from "nodemailer";
 @Injectable()
 export class UsersService {
 	private userSelect = {
@@ -192,16 +192,48 @@ export class UsersService {
 
 	async findUserForEmail(
 		email: string,
-	): Promise<string[]> {
+	): Promise<{ message: string }> {
 		const user = await this.prisma.users.findUnique({
 			where: { email: email },
 		});
+
 		if (!user) {
-			throw new NotFoundException();
+			return {
+				message: "Email sent if it exists",
+			};
 		}
-		console.log(user);
+
 		const token = this.jwtService.sign({ email });
 
-		return [user.id, token];
+		const linkRecovery = `Olá ${user.name}, \nVocê solicitou o e-mail de recuperação de senha. Clique no link abaixo e siga as instruções para acessar o sistema. \nhttps://gamedevs.vercel.app/recover/${user.id}/${token}.`;
+
+		this.sendEmail(email, linkRecovery);
+
+		return {
+			message: "Email sent if it exists",
+		};
+	}
+
+	async sendEmail(
+		email: string,
+		text: string,
+	): Promise<void> {
+		const transport = nodeMailer.createTransport({
+			host: "smtp-mail.outlook.com",
+			port: 587,
+			auth: {
+				user: "gamedevs.recovery@outlook.com",
+				pass: "@gamedevs",
+			},
+		});
+
+		const message = {
+			from: "Suporte GameDevs",
+			to: email,
+			subject: "Recuperar Senha",
+			text: text,
+		};
+
+		await transport.sendMail(message);
 	}
 }

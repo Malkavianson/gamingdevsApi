@@ -23,8 +23,6 @@ import { AuthGuard } from "@nestjs/passport";
 import { LoggedUser } from "src/auth/loggeduser.decorator";
 import { Users } from "./entities/users.entities";
 import { Profiles } from "src/profiles/entities/profiles.entities";
-import { JwtService } from "@nestjs/jwt";
-
 @ApiTags("Users")
 @Controller("users")
 export class UsersController {
@@ -137,12 +135,9 @@ export class UsersController {
 	})
 	async recoverPassword(
 		@Param("email") email: string,
-	): Promise<{ status: number; message: string }> {
-		await this.usersService.findUserForEmail(email);
-
-		return {
-			status: 200,
-			message: "requested password for email",
-		};
+	): Promise<{ message: string }> {
+		return await this.usersService.findUserForEmail(
+			email,
+		);
 	}
 }
