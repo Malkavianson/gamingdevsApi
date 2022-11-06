@@ -205,9 +205,15 @@ export class UsersService {
 
 		const token = this.jwtService.sign({ email });
 
-		const linkRecovery = `Olá ${user.name}, \nVocê solicitou o e-mail de recuperação de senha. Clique no link abaixo e siga as instruções para acessar o sistema. \nhttps://gamedevs.vercel.app/recover/${user.id}/${token}.`;
+		const linkRecoveryText = `Olá ${user.name}, \nVocê solicitou o e-mail de recuperação de senha. Clique no link abaixo e siga as instruções para acessar o sistema. \nhttps://gamedevs.vercel.app/recover/${user.id}/${token}.`;
+		const linkRecoveryHtml = `<h4>Olá ${user.name},</h4>
+		<p>Você solicitou o e-mail de recuperação de senha. Clique <a href="https://gamedevs.vercel.app/recover/${user.id}/${token}">aqui</a> e siga as instruções para acessar o sistema.</p>`;
 
-		this.sendEmail(email, linkRecovery);
+		this.sendEmail(
+			email,
+			linkRecoveryText,
+			linkRecoveryHtml,
+		);
 
 		return {
 			message: "Email sent if it exists",
@@ -217,21 +223,23 @@ export class UsersService {
 	async sendEmail(
 		email: string,
 		text: string,
+		html: string,
 	): Promise<void> {
 		const transport = nodeMailer.createTransport({
-			host: "smtp-mail.outlook.com",
+			host: process.env.HOST_EMAIL,
 			port: 587,
 			auth: {
-				user: "gamedevs.recovery@outlook.com",
-				pass: "@gamedevs",
+				user: process.env.USER_EMAIL,
+				pass: process.env.PASS_EMAIL,
 			},
 		});
 
 		const message = {
-			from: "Suporte GameDevs",
+			from: "GameDevs <gamedevs.recovery@outlook.com>",
 			to: email,
 			subject: "Recuperar Senha",
 			text: text,
+			html: html,
 		};
 
 		await transport.sendMail(message);
