@@ -11,6 +11,14 @@ import * as bcrypt from "bcryptjs";
 
 @Injectable()
 export class AuthService {
+	private userSelect = {
+		id: true,
+		name: true,
+		email: true,
+		updatedAt: true,
+		createdAt: true,
+	};
+
 	constructor(
 		private readonly prisma: PrismaService,
 		private readonly jwtService: JwtService,
@@ -23,6 +31,12 @@ export class AuthService {
 		const user: Users =
 			await this.prisma.users.findUnique({
 				where: { email },
+				select: {
+					...this.userSelect,
+					isAdmin: true,
+					cpf: true,
+					profile: true,
+				},
 			});
 
 		if (!user) {
