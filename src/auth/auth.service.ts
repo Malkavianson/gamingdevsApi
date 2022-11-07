@@ -15,6 +15,7 @@ export class AuthService {
 		id: true,
 		name: true,
 		email: true,
+		password: true,
 		updatedAt: true,
 		createdAt: true,
 	};
