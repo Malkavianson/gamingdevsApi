@@ -7,7 +7,7 @@ export class Users {
 	cpf: string;
 	password?: string;
 	isAdmin?: boolean;
-	profiles?: Profiles[];
+	profile?: Profiles[];
 	createdAt: Date;
 	updatedAt: Date;
 }
