@@ -36,6 +36,7 @@ export class AuthService {
 				select: {
 					...this.userSelect,
 					isAdmin: true,
+					cpf: true,
 					profile: true,
 				},
 			});
