@@ -15,6 +15,8 @@ export class AuthService {
 		id: true,
 		name: true,
 		email: true,
+		cpf: true,
+		password: true,
 		updatedAt: true,
 		createdAt: true,
 	};
@@ -34,7 +36,6 @@ export class AuthService {
 				select: {
 					...this.userSelect,
 					isAdmin: true,
-					cpf: true,
 					profile: true,
 				},
 			});
