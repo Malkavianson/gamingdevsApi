@@ -86,6 +86,10 @@ export class FavoritesService {
 		user: Users,
 	): Promise<Favorite[]> {
 		if (user.isAdmin) {
+			return await this.prisma.favorites.findMany({
+				where: { profileId: id },
+				include: { games: true },
+			});
 		} else {
 			const isOwner =
 				await this.prisma.profiles.findUnique({
