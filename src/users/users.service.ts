@@ -44,7 +44,7 @@ export class UsersService {
 			email: dto.email,
 			password: hashedPassword,
 			cpf: dto.cpf,
-			isAdmin: dto.isAdmin,
+			isAdmin: false,
 		};
 
 		return this.prisma.users
@@ -142,6 +142,9 @@ export class UsersService {
 				.catch(handleErrorConstraintUnique);
 		}
 		if (thisUser.id === user.id) {
+			if (dto.isAdmin) {
+				dto.isAdmin = false;
+			}
 			return await this.prisma.users
 				.update({
 					where: { id },
