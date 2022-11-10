@@ -1,5 +1,17 @@
+export interface IOrder {
+	id?: string;
+	title?: string;
+	image?: string;
+	description?: string;
+	year?: string;
+	score?: string;
+	trailer?: string;
+	gameplay?: string;
+	favorites?: string;
+}
+
 const ordering = (order: string, sort: string) => {
-	let orderBy: any;
+	let orderBy: IOrder;
 
 	switch (order) {
 		case "id":

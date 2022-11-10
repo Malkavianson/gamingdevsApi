@@ -16,6 +16,7 @@ import ordering from "src/utils/set-orderBy-params";
 export interface AdvancedSearchParams {
 	take: number;
 	skip: number;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	orderBy?: any;
 }
 
@@ -193,5 +194,12 @@ export class GameService {
 				"only admins are allowed to this endpoint",
 			);
 		}
+	}
+
+	async dbinfo(): Promise<number> {
+		console.log("entrou");
+		const count = await this.prisma.games.count();
+		console.log(count);
+		return await this.prisma.games.count();
 	}
 }

@@ -121,4 +121,19 @@ export class GenresService {
 			);
 		}
 	}
+
+	async dbinfo(id: string): Promise<number> {
+		console.log("entrou");
+		const count = await this.prisma.games.count();
+		console.log(count);
+		return await this.prisma.games.count({
+			where: {
+				genres: {
+					some: {
+						id,
+					},
+				},
+			},
+		});
+	}
 }
