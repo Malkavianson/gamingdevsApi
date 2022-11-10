@@ -109,4 +109,13 @@ export class GamesController {
 	): void {
 		this.gameService.delete(id, user);
 	}
+
+	@Get("entity/info")
+	@ApiOperation({
+		summary: "returns number of games",
+	})
+	async dbinfo(): Promise<number> {
+		console.log("controller");
+		return await this.gameService.dbinfo();
+	}
 }
