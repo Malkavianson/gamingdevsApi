@@ -123,4 +123,13 @@ export class GenresController {
 	): Promise<UnauthorizedException | Genre> {
 		return await this.genreservice.delete(id, user);
 	}
+
+	@Get("entity/info/:id")
+	@ApiOperation({
+		summary: "returns number of games in genre by ID",
+	})
+	async dbinfo(@Param("id") id: string): Promise<number> {
+		console.log("controller");
+		return await this.genreservice.dbinfo(id);
+	}
 }
