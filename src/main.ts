@@ -7,6 +7,7 @@ import {
 import { ValidationPipe } from "@nestjs/common";
 import { NestFactory } from "@nestjs/core";
 import { AppModule } from "./app.module";
+import Loop from "./utils/loop";
 
 const PORT = process.env.PORT || 3333;
 
@@ -76,4 +77,6 @@ async function bootstrap(): Promise<void> {
 		),
 	);
 }
+
 bootstrap();
+Loop.function1();
