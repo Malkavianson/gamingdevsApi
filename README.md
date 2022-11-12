@@ -2,11 +2,11 @@
 
 #### API em NEST para fins de aprendizagem
 
-### [NEST API GamingDevs](https://gamingdev.onrender.com)
+### [NEST API GamingDevs](https://gamingdevs.onrender.com)
 
 ##### [NEST API GamingDevs backup](https://gamingdevs.up.railway.app)
 
-### [Documentação](https://gamingdev.onrender.com/documentation)
+### [Documentação](https://gamingdevs.onrender.com/documentation)
 
 ##### [Documentação backup](https://gamingdevs.up.railway.app/documentation)
 
