@@ -18,7 +18,7 @@
 		"test:cov": "jest --coverage",
 		"test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
 		"test:e2e": "jest --config ./test/jest-e2e.json",
-		"prodev": "rd dist /s /q && yarn format && yarn lint && yarn dev",
+		"prodev": "yarn format && yarn lint && yarn dev",
 		"prostart": "rd dist /s /q && yarn format && yarn lint && yarn build && yarn start",
 		"heroku-postbuild": "yarn add nest && yarn run build"
 	},

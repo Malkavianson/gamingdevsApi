@@ -143,4 +143,22 @@ export class FavoritesService {
 			}
 		}
 	}
+
+	// async allFavorites(): Promise<void> {
+	// 	const favs = await this.prisma.favorites.findMany({
+	// 		include: {
+	// 			games: true,
+	// 		},
+	// 	});
+	// 	console.log(
+	// 		favs.map(e => {
+	// 			return [
+	// 				e,
+	// 				e.games.map(g => {
+	// 					return g;
+	// 				}),
+	// 			];
+	// 		}),
+	// 	);
+	// }
 }

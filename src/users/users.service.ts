@@ -1,5 +1,6 @@
 import handleErrorConstraintUnique from "../utils/handle-error-unique.util";
 import {
+	ImATeapotException,
 	Injectable,
 	NotFoundException,
 	UnauthorizedException,
@@ -26,6 +27,25 @@ export class UsersService {
 		private readonly prisma: PrismaService,
 		private readonly jwtService: JwtService,
 	) {}
+
+	private async updateUser(
+		id: string,
+		dto: UpdateUserDto,
+	): Promise<{
+		id: string;
+		name: string;
+		email: string;
+		createdAt: Date;
+		updatedAt: Date;
+	}> {
+		return await this.prisma.users
+			.update({
+				where: { id },
+				data: dto,
+				select: this.userSelect,
+			})
+			.catch(handleErrorConstraintUnique);
+	}
 
 	async create(dto: CreateUserDto): Promise<{
 		id: string;
@@ -114,13 +134,16 @@ export class UsersService {
 		id: string,
 		dto: UpdateUserDto,
 		user: Users,
-	): Promise<{
-		id: string;
-		name: string;
-		email: string;
-		createdAt: Date;
-		updatedAt: Date;
-	}> {
+	): Promise<
+		| ImATeapotException
+		| {
+				id: string;
+				name: string;
+				email: string;
+				createdAt: Date;
+				updatedAt: Date;
+		  }
+	> {
 		const thisUser = await this.verifyIdAndReturnUser(
 			id,
 		);
@@ -133,25 +156,30 @@ export class UsersService {
 			dto.password = hashedPassword;
 		}
 		if (user.isAdmin) {
-			return await this.prisma.users
-				.update({
-					where: { id },
-					data: dto,
-					select: this.userSelect,
-				})
-				.catch(handleErrorConstraintUnique);
-		}
-		if (thisUser.id === user.id) {
+			if (thisUser.id === user.id) {
+				this.updateUser(id, dto);
+				throw new ImATeapotException({
+					message:
+						"I'm a teapot < you must to reload your session >",
+				});
+			} else {
+				return await this.prisma.users
+					.update({
+						where: { id },
+						data: dto,
+						select: this.userSelect,
+					})
+					.catch(handleErrorConstraintUnique);
+			}
+		} else if (thisUser.id === user.id) {
 			if (dto.isAdmin) {
 				dto.isAdmin = false;
 			}
-			return await this.prisma.users
-				.update({
-					where: { id },
-					data: dto,
-					select: this.userSelect,
-				})
-				.catch(handleErrorConstraintUnique);
+			this.updateUser(id, dto);
+			throw new ImATeapotException({
+				message:
+					"I'm a teapot < you must to reload your session >",
+			});
 		} else {
 			throw new UnauthorizedException(
 				"not authorized",
