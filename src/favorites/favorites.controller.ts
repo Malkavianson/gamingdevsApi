@@ -73,4 +73,9 @@ export class FavoritesController {
 	): Promise<Favorite | UnauthorizedException> {
 		return this.favoritesService.dislikeGame(dto, user);
 	}
+
+	// @Get()
+	// async allFavorites(): Promise<void> {
+	// 	return await this.favoritesService.allFavorites();
+	// }
 }
