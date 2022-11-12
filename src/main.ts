@@ -43,8 +43,8 @@ async function bootstrap(): Promise<void> {
 		.addTag("Genres")
 		.addTag("Status")
 		.addBearerAuth()
+		.addServer("https://gamingdevs.onrender.com")
 		.addServer("https://gamingdevs.up.railway.app")
-		.addServer("https://gamingdev.onrender.com")
 		.addServer("http://localhost:3333")
 		.build();
 	const config2 = new DocumentBuilder()
