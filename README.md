@@ -2,13 +2,13 @@
 
 #### API em NEST para fins de aprendizagem
 
-### [NEST API GamingDevs](https://gamingdevs.up.railway.app/)
+### [NEST API GamingDevs](https://gamingdev.onrender.com)
 
-##### [NEST API GamingDevs backup](https://gamingdev.onrender.com)
+##### [NEST API GamingDevs backup](https://gamingdevs.up.railway.app)
 
-### [Documentação](https://gamingdevs.up.railway.app/documentation)
+### [Documentação](https://gamingdev.onrender.com/documentation)
 
-##### [Documentação backup](https://gamingdev.onrender.com/documentation)
+##### [Documentação backup](https://gamingdevs.up.railway.app/documentation)
 
 ![NestJS](https://img.shields.io/badge/nestjs-%23E0234E.svg?style=for-the-badge&logo=nestjs&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
@@ -69,6 +69,10 @@ Acesse [http://localhost:3333](http://localhost:3333) para visualizá-lo em seu 
 > > ## Autor
 > >
 > > -   [Alexandre dos Santos Pereira Neto](https://www.linkedin.com/in/alexandrespneto/)
+>
+> > ## Colaboração
+> > - [Matheus Santos](https://github.com/santos95mat)
+> > - [Dener Gomes Batista](https://github.com/denerbatista)
 
 ## Licença
 
