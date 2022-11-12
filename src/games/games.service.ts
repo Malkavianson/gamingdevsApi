@@ -197,9 +197,7 @@ export class GameService {
 	}
 
 	async dbinfo(): Promise<number> {
-		console.log("entrou");
 		const count = await this.prisma.games.count();
-		console.log(count);
 		return await this.prisma.games.count();
 	}
 }

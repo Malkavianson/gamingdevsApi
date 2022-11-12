@@ -115,7 +115,6 @@ export class GamesController {
 		summary: "returns number of games",
 	})
 	async dbinfo(): Promise<number> {
-		console.log("controller");
 		return await this.gameService.dbinfo();
 	}
 }
