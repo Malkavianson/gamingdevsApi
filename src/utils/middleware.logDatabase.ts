@@ -17,6 +17,7 @@ export class Logger implements NestMiddleware {
 		// 	status: res.statusCode,
 		// };
 		// console.log(data);
+		console.log("");
 		next();
 	}
 }
