@@ -10,7 +10,7 @@ export interface IOrder {
 	favorites?: string;
 }
 
-const ordering = (order: string, sort: string) => {
+const ordering = (order: string, sort: string): IOrder => {
 	let orderBy: IOrder;
 
 	switch (order) {

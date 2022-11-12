@@ -5,6 +5,7 @@ import {
 	Get,
 	HttpCode,
 	HttpStatus,
+	ImATeapotException,
 	Param,
 	Patch,
 	Post,
@@ -91,13 +92,16 @@ export class UsersController {
 		@LoggedUser() user: Users,
 		@Param("id") id: string,
 		@Body() dto: UpdateUserDto,
-	): Promise<{
-		id: string;
-		name: string;
-		email: string;
-		createdAt: Date;
-		updatedAt: Date;
-	}> {
+	): Promise<
+		| ImATeapotException
+		| {
+				id: string;
+				name: string;
+				email: string;
+				createdAt: Date;
+				updatedAt: Date;
+		  }
+	> {
 		return await this.usersService.update(
 			id,
 			dto,
