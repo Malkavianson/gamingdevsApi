@@ -5,13 +5,12 @@ class Loop {
 	static function1(): void {
 		setTimeout(() => this.function2(), 600000);
 		api.get("/status")
-			.then(() => {
+			.then(res => {
 				this.countTime += 10;
-				console.log("ok");
+				console.log("ok", res.data);
 			})
-			.catch(() => {
-				console.log("Server paralyzed");
-				process.kill(0, "SIGINT");
+			.catch(err => {
+				console.log("error", err);
 			});
 		return console.log("tested");
 	}
@@ -19,13 +18,12 @@ class Loop {
 	static function2(): void {
 		setTimeout(() => this.function1(), 600000);
 		api.get("/status")
-			.then(() => {
+			.then(res => {
 				this.countTime += 10;
-				console.log("ok");
+				console.log("ok", res.data);
 			})
-			.catch(() => {
-				console.log("Server paralyzed");
-				process.kill(0, "SIGINT");
+			.catch(err => {
+				console.log("error", err);
 			});
 		return console.log("tested");
 	}
