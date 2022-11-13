@@ -7,7 +7,8 @@ class Loop {
 				console.log("ok");
 			})
 			.catch(() => {
-				console.log("error");
+				console.log("Server paralyzed");
+				process.kill(0, "SIGINT");
 			});
 		return console.log("tested");
 	}
@@ -19,7 +20,8 @@ class Loop {
 				console.log("ok");
 			})
 			.catch(() => {
-				console.log("error");
+				console.log("Server paralyzed");
+				process.kill(0, "SIGINT");
 			});
 		return console.log("tested");
 	}

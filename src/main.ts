@@ -8,10 +8,11 @@ import { ValidationPipe } from "@nestjs/common";
 import { NestFactory } from "@nestjs/core";
 import { AppModule } from "./app.module";
 import Loop from "./utils/loop";
+import { Server } from "http";
 
 const PORT = process.env.PORT || 3333;
 
-async function bootstrap(): Promise<void> {
+export async function bootstrap(): Promise<void> {
 	console.clear();
 	console.log("Starting and validating");
 
@@ -71,11 +72,16 @@ async function bootstrap(): Promise<void> {
 	console.log("Swagger.setup Builded");
 	console.log("Mapping routes:");
 
-	await app.listen(PORT, () =>
+	const server: Server = await app.listen(PORT, () =>
 		console.log(
 			`App bootstraped at http://localhost:${PORT}`,
 		),
 	);
+
+	process.on("SIGINT", () => {
+		server.close();
+		console.log("Finished Application");
+	});
 }
 
 bootstrap();
