@@ -1,6 +1,7 @@
 import { Controller, Get, Res } from "@nestjs/common";
 import {
 	ApiExcludeEndpoint,
+	ApiOperation,
 	ApiTags,
 } from "@nestjs/swagger";
 import { AppService } from "./app.service";
@@ -19,5 +20,14 @@ export class AppController {
 	@Get("status")
 	getAppStatus(): string {
 		return this.appService.getAppStatus();
+	}
+
+	@Get("stop")
+	@ApiOperation({
+		summary: "Paralyzes the server",
+	})
+	getAppStop(): void {
+		console.log("Server paralyzed");
+		process.kill(0, "SIGINT");
 	}
 }
