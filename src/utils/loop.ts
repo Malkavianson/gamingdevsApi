@@ -1,9 +1,12 @@
 import { api } from "src/helpers/api";
 class Loop {
+	static countTime = -10;
+
 	static function1(): void {
 		setTimeout(() => this.function2(), 600000);
 		api.get("/status")
 			.then(() => {
+				this.countTime += 10;
 				console.log("ok");
 			})
 			.catch(() => {
@@ -17,6 +20,7 @@ class Loop {
 		setTimeout(() => this.function1(), 600000);
 		api.get("/status")
 			.then(() => {
+				this.countTime += 10;
 				console.log("ok");
 			})
 			.catch(() => {
