@@ -14,21 +14,27 @@ import { api } from "src/helpers/api";
 
 class Loop {
 	static function1(): void {
-		setTimeout(() => this.function2(), 10000);
-		api.get("/status").then(res => {
-			console.log("res1");
-			console.log(res);
-		});
-		return console.log("");
+		setTimeout(() => this.function2(), 600000);
+		api.get("/status")
+			.then(() => {
+				console.log("ok");
+			})
+			.catch(() => {
+				console.log("error");
+			});
+		return console.log("tested");
 	}
 
 	static function2(): void {
-		setTimeout(() => this.function1(), 1000);
-		api.get("/status").then(res => {
-			console.log("res2");
-			console.log(res);
-		});
-		return console.log("");
+		setTimeout(() => this.function1(), 600000);
+		api.get("/status")
+			.then(() => {
+				console.log("ok");
+			})
+			.catch(() => {
+				console.log("error");
+			});
+		return console.log("tested");
 	}
 }
 
