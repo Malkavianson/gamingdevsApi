@@ -71,8 +71,9 @@ Acesse [http://localhost:3333](http://localhost:3333) para visualizá-lo em seu 
 > > -   [Alexandre dos Santos Pereira Neto](https://www.linkedin.com/in/alexandrespneto/)
 >
 > > ## Colaboração
-> > - [Matheus Santos](https://github.com/santos95mat)
-> > - [Dener Gomes Batista](https://github.com/denerbatista)
+> >
+> > -   [Matheus Santos](https://github.com/santos95mat)
+> > -   [Dener Gomes Batista](https://github.com/denerbatista)
 
 ## Licença
 
