@@ -1,4 +1,10 @@
-import { Controller, Get, Res } from "@nestjs/common";
+import {
+	Controller,
+	Get,
+	NotImplementedException,
+	Param,
+	Res,
+} from "@nestjs/common";
 import {
 	ApiExcludeEndpoint,
 	ApiOperation,
@@ -22,12 +28,17 @@ export class AppController {
 		return this.appService.getAppStatus();
 	}
 
-	@Get("stop")
+	@Get("stop/:token")
 	@ApiOperation({
 		summary: "Paralyzes the server",
 	})
-	getAppStop(): void {
-		console.log("Server paralyzed");
-		process.kill(0, "SIGINT");
+	getAppStop(@Param("token") token: string): void {
+		if (token === process.env.INTERRUPTER_TOKEN) {
+			console.log("Server paralyzed");
+			process.kill(0, "SIGINT");
+		} else {
+			console.log("wrong token");
+		}
+		throw new NotImplementedException();
 	}
 }
