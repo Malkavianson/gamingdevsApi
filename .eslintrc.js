@@ -19,9 +19,9 @@ module.exports = {
 	rules: {
 		"@typescript-eslint/interface-name-prefix": "off",
 		"@typescript-eslint/explicit-function-return-type":
-			"warn",
+			"error",
 		"@typescript-eslint/explicit-module-boundary-types":
-			"warn",
-		"@typescript-eslint/no-explicit-any": "warn",
+			"error",
+		"@typescript-eslint/no-explicit-any": "error",
 	},
 };
