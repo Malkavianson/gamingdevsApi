@@ -4,7 +4,7 @@ export class Users {
 	id: string;
 	name: string;
 	email: string;
-	cpf: string;
+	cpf?: string;
 	password?: string;
 	isAdmin?: boolean;
 	profile?: Profiles[];

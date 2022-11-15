@@ -12,13 +12,7 @@ import { Users } from "src/users/entities/users.entities";
 import { Game } from "./entities/game.entities";
 import { Genre } from "src/genres/entities/genre.entity";
 import ordering from "src/utils/set-orderBy-params";
-
-export interface AdvancedSearchParams {
-	take: number;
-	skip: number;
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	orderBy?: any;
-}
+import { AdvancedSearchParams } from "src/utils/types/interfaces/games";
 
 @Injectable()
 export class GameService {

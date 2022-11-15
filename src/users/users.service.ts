@@ -31,13 +31,7 @@ export class UsersService {
 	private async updateUser(
 		id: string,
 		dto: UpdateUserDto,
-	): Promise<{
-		id: string;
-		name: string;
-		email: string;
-		createdAt: Date;
-		updatedAt: Date;
-	}> {
+	): Promise<Users> {
 		return await this.prisma.users
 			.update({
 				where: { id },
@@ -47,13 +41,7 @@ export class UsersService {
 			.catch(handleErrorConstraintUnique);
 	}
 
-	async create(dto: CreateUserDto): Promise<{
-		id: string;
-		name: string;
-		email: string;
-		createdAt: Date;
-		updatedAt: Date;
-	}> {
+	async create(dto: CreateUserDto): Promise<Users> {
 		const hashedPassword = await bcrypt.hash(
 			dto.password,
 			8,
@@ -72,15 +60,7 @@ export class UsersService {
 			.catch(handleErrorConstraintUnique);
 	}
 
-	async findAll(): Promise<
-		{
-			id: string;
-			name: string;
-			email: string;
-			updatedAt: Date;
-			createdAt: Date;
-		}[]
-	> {
+	async findAll(): Promise<Users[]> {
 		const res = await this.prisma.users.findMany({
 			select: this.userSelect,
 		});
@@ -88,16 +68,9 @@ export class UsersService {
 		return res;
 	}
 
-	async verifyIdAndReturnUser(id: string): Promise<{
-		id: string;
-		isAdmin: boolean;
-		cpf: string;
-		profile: Profiles[];
-		name: string;
-		email: string;
-		updatedAt: Date;
-		createdAt: Date;
-	}> {
+	async verifyIdAndReturnUser(
+		id: string,
+	): Promise<Users> {
 		const user = await this.prisma.users.findUnique({
 			where: { id },
 			select: {
@@ -117,16 +90,7 @@ export class UsersService {
 		return user;
 	}
 
-	async findOne(id: string): Promise<{
-		id: string;
-		isAdmin: boolean;
-		cpf: string;
-		profile: Profiles[];
-		name: string;
-		email: string;
-		updatedAt: Date;
-		createdAt: Date;
-	}> {
+	async findOne(id: string): Promise<Users> {
 		return await this.verifyIdAndReturnUser(id);
 	}
 
@@ -134,16 +98,7 @@ export class UsersService {
 		id: string,
 		dto: UpdateUserDto,
 		user: Users,
-	): Promise<
-		| ImATeapotException
-		| {
-				id: string;
-				name: string;
-				email: string;
-				createdAt: Date;
-				updatedAt: Date;
-		  }
-	> {
+	): Promise<ImATeapotException | Users> {
 		const thisUser = await this.verifyIdAndReturnUser(
 			id,
 		);
@@ -190,16 +145,7 @@ export class UsersService {
 	async remove(
 		id: string,
 		user: Users,
-	): Promise<
-		| {
-				id: string;
-				name: string;
-				email: string;
-				updatedAt: Date;
-				createdAt: Date;
-		  }
-		| UnauthorizedException
-	> {
+	): Promise<Users | UnauthorizedException> {
 		const thisUser = await this.verifyIdAndReturnUser(
 			id,
 		);
