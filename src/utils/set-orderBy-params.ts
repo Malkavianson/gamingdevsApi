@@ -1,14 +1,4 @@
-export interface IOrder {
-	id?: string;
-	title?: string;
-	image?: string;
-	description?: string;
-	year?: string;
-	score?: string;
-	trailer?: string;
-	gameplay?: string;
-	favorites?: string;
-}
+import { IOrder } from "./types/interfaces/orders";
 
 const ordering = (order: string, sort: string): IOrder => {
 	let orderBy: IOrder;
