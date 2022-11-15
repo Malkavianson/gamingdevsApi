@@ -8,7 +8,7 @@ import { Genre } from "./entities/genre.entity";
 import { PrismaService } from "src/prisma/prisma.service";
 import { UpdateGenreDto } from "./dto/update-genre.dto";
 import { Users } from "src/users/entities/users.entities";
-import { AdvancedSearchParams } from "src/games/games.service";
+import { AdvancedSearchParams } from "src/utils/types/interfaces/orders";
 import ordering from "src/utils/set-orderBy-params";
 
 @Injectable()

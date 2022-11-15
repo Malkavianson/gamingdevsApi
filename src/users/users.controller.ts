@@ -23,7 +23,7 @@ import { UsersService } from "./users.service";
 import { AuthGuard } from "@nestjs/passport";
 import { LoggedUser } from "src/auth/loggeduser.decorator";
 import { Users } from "./entities/users.entities";
-import { Profiles } from "src/profiles/entities/profiles.entities";
+
 @ApiTags("Users")
 @Controller("users")
 export class UsersController {
@@ -69,16 +69,7 @@ export class UsersController {
 	@ApiOperation({
 		summary: "Returns one User by ID",
 	})
-	async findOne(@Param("id") id: string): Promise<{
-		id: string;
-		isAdmin: boolean;
-		cpf: string;
-		profile: Profiles[];
-		name: string;
-		email: string;
-		updatedAt: Date;
-		createdAt: Date;
-	}> {
+	async findOne(@Param("id") id: string): Promise<Users> {
 		return await this.usersService.findOne(id);
 	}
 

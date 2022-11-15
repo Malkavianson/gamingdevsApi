@@ -12,7 +12,7 @@ import { Users } from "src/users/entities/users.entities";
 import { Game } from "./entities/game.entities";
 import { Genre } from "src/genres/entities/genre.entity";
 import ordering from "src/utils/set-orderBy-params";
-import { AdvancedSearchParams } from "src/utils/types/interfaces/games";
+import { AdvancedSearchParams } from "src/utils/types/interfaces/orders";
 
 @Injectable()
 export class GameService {
@@ -191,7 +191,6 @@ export class GameService {
 	}
 
 	async dbinfo(): Promise<number> {
-		const count = await this.prisma.games.count();
 		return await this.prisma.games.count();
 	}
 }

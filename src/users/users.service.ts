@@ -10,7 +10,6 @@ import { CreateUserDto } from "./dto/create-user.dto";
 import { UpdateUserDto } from "./dto/update-user.dto";
 import * as bcrypt from "bcryptjs";
 import { Users } from "./entities/users.entities";
-import { Profiles } from "src/profiles/entities/profiles.entities";
 import { JwtService } from "@nestjs/jwt";
 import nodeMailer from "nodemailer";
 @Injectable()
