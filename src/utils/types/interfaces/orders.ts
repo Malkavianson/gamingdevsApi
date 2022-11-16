@@ -1,3 +1,8 @@
+/**
+ * Interface IOrder including all ways to order games in API
+ *
+ * Note: This does not replace the interface games DTO
+ */
 export interface IOrder {
 	id?: string;
 	title?: string;
@@ -9,6 +14,16 @@ export interface IOrder {
 	gameplay?: string;
 	favorites?: string;
 }
+
+/**
+ * Advanced Search Parameters:
+ *
+ *   take: how much games per page.
+ *
+ *   skip: how much games gotta be skipped.
+ *
+ *   orderBy: IOrder parameter.
+ */
 export interface AdvancedSearchParams {
 	take: number;
 	skip: number;
