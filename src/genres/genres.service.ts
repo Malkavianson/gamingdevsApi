@@ -43,7 +43,7 @@ export class GenresService {
 
 		if (!res) {
 			throw new NotFoundException(
-				"Registro com o ${id}",
+				`Registro com o ${id}`,
 			);
 		}
 
@@ -85,7 +85,7 @@ export class GenresService {
 
 		if (!res) {
 			throw new NotFoundException(
-				"Registro com o ${id}",
+				`Registro com o ${id}`,
 			);
 		}
 
